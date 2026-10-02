@@ -1,25 +1,84 @@
+# Digi-Santé Junior — Development Environment
+#
+# Start the complete development stack:
+#   docker compose up -d --build
+#
+# Services exposed to the host:
+#   Application:  http://localhost:8081
+#   phpMyAdmin:   http://localhost:8082
+#   MySQL:        127.0.0.1:3308
+
+name: digisante-junior
 
 services:
-###> doctrine/doctrine-bundle ###
-  database:
-    image: postgres:${POSTGRES_VERSION:-16}-alpine
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: digisante_junior_app
+
+    depends_on:
+      database:
+        condition: service_healthy
+
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
-      POSTGRES_USER: ${POSTGRES_USER:-app}
-    healthcheck:
-      test: ["CMD", "pg_isready", "-d", "${POSTGRES_DB:-app}", "-U", "${POSTGRES_USER:-app}"]
-      timeout: 5s
-      retries: 5
-      start_period: 60s
+      # Docker services communicate using their service names.
+      DATABASE_URL: "mysql://digisante:digisante@database:3306/digisante_junior?serverVersion=8.4&charset=utf8mb4"
+
+    ports:
+      - "8081:80"
+
     volumes:
-      - database_data:/var/lib/postgresql/data:rw
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql/data:rw
-###< doctrine/doctrine-bundle ###
+      # Mount the project directory for live development.
+      - ./:/app
+
+  database:
+    image: mysql:8.4
+    container_name: digisante_junior_db
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: digisante_junior
+      MYSQL_USER: digisante
+      MYSQL_PASSWORD: digisante
+
+      # Keep MySQL in the same timezone as the PHP application.
+      TZ: Europe/Paris
+
+    ports:
+      - "3308:3306"
+
+    volumes:
+      # Persist database data between container restarts.
+      - db_data:/var/lib/mysql
+
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 10s
+
+  phpmyadmin:
+    image: phpmyadmin:5.2
+    container_name: digisante_junior_phpmyadmin
+
+    depends_on:
+      database:
+        condition: service_healthy
+
+    environment:
+      # Connect phpMyAdmin to the MySQL service through the Docker network.
+      PMA_HOST: database
+      PMA_PORT: 3306
+      PMA_USER: digisante
+      PMA_PASSWORD: digisante
+
+      TZ: Europe/Paris
+
+    ports:
+      - "8082:80"
 
 volumes:
-###> doctrine/doctrine-bundle ###
-  database_data:
-###< doctrine/doctrine-bundle ###
+  # Store MySQL data in a Docker-managed persistent volume.
+  db_data:
