@@ -3,11 +3,21 @@
 namespace App\Entity;
 
 use App\Repository\WellnessContentRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: WellnessContentRepository::class)]
 class WellnessContent
 {
+    /**
+     * Available wellness content types.
+     */
+    public const TYPES = [
+        'article' => ['name' => 'Fiche'],
+        'video' => ['name' => 'Vidéo'],
+        'exercise' => ['name' => 'Exercice'],
+    ];
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -16,7 +26,7 @@ class WellnessContent
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
     #[ORM\Column(length: 255)]

@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\DivisibleBy;
+use Symfony\Component\Validator\Constraints\Range;
 
 
 /**
@@ -18,6 +20,14 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\UniqueConstraint(name: 'UNIQ_JOURNAL_ENTRY_CHILD_DATE', columns: ['child_id', 'date'])]
 class JournalEntry
 {
+
+    /**
+     * Screen time limits in minutes.
+     */
+    public const SCREEN_TIME_MIN = 0;
+    public const SCREEN_TIME_MAX = 360;
+    public const SCREEN_TIME_STEP = 15;
+    public const DAILY_SCREEN_TIME_MAX = 960;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -27,21 +37,75 @@ class JournalEntry
     private ?\DateTimeImmutable $date = null;
 
     #[ORM\Column]
+    #[Range(
+        notInRangeMessage: 'TV screen time must be between 0 and 360 minutes.',
+        min: self::SCREEN_TIME_MIN,
+        max: self::SCREEN_TIME_MAX
+    )]
+    #[DivisibleBy(
+        value: self::SCREEN_TIME_STEP,
+        message: 'TV screen time must be in 15-minute increments.'
+    )]
     private ?int $tvScreen = 0;
 
     #[ORM\Column]
+    #[Range(
+        notInRangeMessage: 'PC screen time must be between 0 and 360 minutes.',
+        min: 0,
+        max: 360
+    )]
+    #[DivisibleBy(
+        value: 15,
+        message: 'PC screen time must be in 15-minute increments.'
+    )]
     private ?int $pcScreen = 0;
 
     #[ORM\Column]
+    #[Range(
+        notInRangeMessage: 'Phone screen time must be between 0 and 360 minutes.',
+        min: 0,
+        max: 360
+    )]
+    #[DivisibleBy(
+        value: 15,
+        message: 'Phone screen time must be in 15-minute increments.'
+    )]
     private ?int $phoneScreen = 0;
 
     #[ORM\Column]
+    #[Range(
+        notInRangeMessage: 'Tablet screen time must be between 0 and 360 minutes.',
+        min: 0,
+        max: 360
+    )]
+    #[DivisibleBy(
+        value: 15,
+        message: 'Tablet screen time must be in 15-minute increments.'
+    )]
     private ?int $tabletScreen = 0;
 
     #[ORM\Column]
+    #[Range(
+        notInRangeMessage: 'Console screen time must be between 0 and 360 minutes.',
+        min: 0,
+        max: 360
+    )]
+    #[DivisibleBy(
+        value: 15,
+        message: 'Console screen time must be in 15-minute increments.'
+    )]
     private ?int $consoleScreen = 0;
 
     #[ORM\Column]
+    #[Range(
+        notInRangeMessage: 'Other screen time must be between 0 and 360 minutes.',
+        min: 0,
+        max: 360
+    )]
+    #[DivisibleBy(
+        value: 15,
+        message: 'Other screen time must be in 15-minute increments.'
+    )]
     private ?int $otherScreen = 0;
 
     #[ORM\ManyToOne(inversedBy: 'journalEntries')]
@@ -54,8 +118,12 @@ class JournalEntry
     #[ORM\OneToMany(targetEntity: PainZone::class, mappedBy: 'journalEntry', orphanRemoval: true)]
     private Collection $painZones;
 
+    /**
+     * Initializes the journal date and the pain zones collection.
+     */
     public function __construct()
     {
+        $this->date = new \DateTimeImmutable('today');
         $this->painZones = new ArrayCollection();
     }
 
@@ -164,9 +232,16 @@ class JournalEntry
     /**
      * Calculates the total screen time in minutes.
      */
+    #[Range(
+        notInRangeMessage: 'Total daily screen time cannot exceed 960 minutes.',
+        max: self::DAILY_SCREEN_TIME_MAX
+    )]
     public function getTotalMinutes(): int
     {
-        return $this->tvScreen + $this->pcScreen + $this->phoneScreen + $this->tabletScreen
+        return $this->tvScreen
+            + $this->pcScreen
+            + $this->phoneScreen
+            + $this->tabletScreen
             + $this->consoleScreen
             + $this->otherScreen;
     }

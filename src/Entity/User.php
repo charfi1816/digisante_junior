@@ -6,19 +6,28 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    /**
+     * Available user roles in the application.
+     */
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
+    public const ROLE_PARENT = 'ROLE_PARENT';
+    public const ROLE_CHILD = 'ROLE_CHILD';
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, unique: true)]
+    #[ORM\Column(length: 255, unique: true, nullable: true)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 255, unique: true)]
+    #[ORM\Column(length: 255, unique: true, nullable: true)]
     private ?string $username = null;
 
     #[ORM\Column(length: 255)]
@@ -56,7 +65,7 @@ class User
         return $this->email;
     }
 
-    public function setEmail(string $email): static
+    public function setEmail(?string $email): static
     {
         $this->email = $email;
 
@@ -68,11 +77,26 @@ class User
         return $this->username;
     }
 
-    public function setUsername(string $username): static
+    public function setUsername(?string $username): static
     {
         $this->username = $username;
 
         return $this;
+    }
+
+    /**
+     * Returns the unique identifier used to authenticate the user.
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string)($this->email ?? $this->username);
+    }
+
+    /**
+     * Removes temporary sensitive data from the user.
+     */
+    public function eraseCredentials(): void
+    {
     }
 
     public function getPassword(): ?string
@@ -111,10 +135,14 @@ class User
         return $this;
     }
 
+    /**
+     * Checks whether the user has the parent role.
+     */
     public function isParent(): bool
     {
-        return in_array('ROLE_PARENT', $this->roles, true);
+        return in_array(self::ROLE_PARENT, $this->roles, true);
     }
+
 
     /**
      * @return Collection<int, Child>

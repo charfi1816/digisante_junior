@@ -7,28 +7,66 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Choice;
+use Symfony\Component\Validator\Constraints\DivisibleBy;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotNull;
+use Symfony\Component\Validator\Constraints\Range;
 
 #[ORM\Entity(repositoryClass: ChildRepository::class)]
 class Child
 {
+    /**
+     * Available avatars for child profiles.
+     */
+
+    public const AVATARS = [
+        'fox' => ['name' => 'Renard malin'],
+        'panda' => ['name' => 'Panda calme'],
+        'cat' => ['name' => 'Chat curieux'],
+        'lion' => ['name' => 'Lion courageux'],
+    ];
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[NotBlank(message: 'First name is required.')]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
+    #[NotBlank(message: 'Last name is required.')]
     private ?string $lastName = null;
 
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
+    #[NotNull(message: 'Birth date is required.')]
+    #[Range(
+        notInRangeMessage: 'The child must be between 8 and 14 years old.',
+        min: 'today -15 years +1 day',
+        max: 'today -8 years'
+    )]
     private ?\DateTimeImmutable $birthDate = null;
 
     #[ORM\Column(length: 255)]
+    #[NotBlank(message: 'Avatar is required.')]
+    #[Choice(
+        choices: ['fox', 'panda', 'cat', 'lion'],
+        message: 'Please select a valid avatar.'
+    )]
     private ?string $avatar = null;
 
     #[ORM\Column]
+    #[NotNull(message: 'Daily screen limit is required.')]
+    #[Range(
+        notInRangeMessage: 'Daily screen limit must be between 15 and 480 minutes.',
+        min: 15,
+        max: 480
+    )]
+    #[DivisibleBy(
+        value: 15,
+        message: 'Daily screen limit must be in 15-minute increments.'
+    )]
     private ?int $dailyScreenLimit = 120;
 
     #[ORM\ManyToOne(inversedBy: 'children')]

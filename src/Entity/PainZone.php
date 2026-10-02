@@ -4,19 +4,39 @@ namespace App\Entity;
 
 use App\Repository\PainZoneRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Choice;
+use Symfony\Component\Validator\Constraints\Range;
 
 #[ORM\Entity(repositoryClass: PainZoneRepository::class)]
 class PainZone
 {
+    /**
+     * Available pain zones for journal entries.
+     */
+    public const ZONES = [
+        'eyes' => ['name' => 'Yeux'],
+        'neck' => ['name' => 'Cou / nuque'],
+        'back' => ['name' => 'Dos'],
+        'hands' => ['name' => 'Mains / poignets'],
+    ];
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Choice(
+        choices: ['eyes', 'neck', 'back', 'hands'],
+        message: 'Please select a valid pain zone.'
+    )]
     private ?string $zone = null;
 
     #[ORM\Column]
+    #[Range(
+        notInRangeMessage: 'Pain intensity must be between 1 and 5.',
+        min: 1,
+        max: 5
+    )]
     private ?int $intensity = null;
 
     #[ORM\ManyToOne(inversedBy: 'painZones')]
