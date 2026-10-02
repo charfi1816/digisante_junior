@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ChildRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -36,6 +38,17 @@ class Child
     #[ORM\OneToOne(inversedBy: 'child', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $account = null;
+
+    /**
+     * @var Collection<int, JournalEntry>
+     */
+    #[ORM\OneToMany(targetEntity: JournalEntry::class, mappedBy: 'child', orphanRemoval: true)]
+    private Collection $journalEntries;
+
+    public function __construct()
+    {
+        $this->journalEntries = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -115,7 +128,7 @@ class Child
     }
 
     /**
-     * Returns the child's   full name.
+     * Returns the child's full name.
      */
 
     public function getFullName(): string
@@ -124,7 +137,7 @@ class Child
     }
 
     /**
-     * Calculates the child's   current age from their birth date.
+     * Calculates the child's current age from their birth date.
      */
 
     public function getAge(): ?int
@@ -140,6 +153,36 @@ class Child
     public function setAccount(User $account): static
     {
         $this->account = $account;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, JournalEntry>
+     */
+    public function getJournalEntries(): Collection
+    {
+        return $this->journalEntries;
+    }
+
+    public function addJournalEntry(JournalEntry $journalEntry): static
+    {
+        if (!$this->journalEntries->contains($journalEntry)) {
+            $this->journalEntries->add($journalEntry);
+            $journalEntry->setChild($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJournalEntry(JournalEntry $journalEntry): static
+    {
+        if ($this->journalEntries->removeElement($journalEntry)) {
+            // set the owning side to null (unless already changed)
+            if ($journalEntry->getChild() === $this) {
+                $journalEntry->setChild(null);
+            }
+        }
 
         return $this;
     }
