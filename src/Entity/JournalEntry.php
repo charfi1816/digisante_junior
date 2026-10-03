@@ -51,11 +51,11 @@ class JournalEntry
     #[ORM\Column]
     #[Range(
         notInRangeMessage: 'PC screen time must be between 0 and 360 minutes.',
-        min: 0,
-        max: 360
+        min: self::SCREEN_TIME_MIN,
+        max: self::SCREEN_TIME_MAX
     )]
     #[DivisibleBy(
-        value: 15,
+        value: self::SCREEN_TIME_STEP,
         message: 'PC screen time must be in 15-minute increments.'
     )]
     private ?int $pcScreen = 0;
@@ -63,11 +63,11 @@ class JournalEntry
     #[ORM\Column]
     #[Range(
         notInRangeMessage: 'Phone screen time must be between 0 and 360 minutes.',
-        min: 0,
-        max: 360
+        min: self::SCREEN_TIME_MIN,
+        max: self::SCREEN_TIME_MAX
     )]
     #[DivisibleBy(
-        value: 15,
+        value: self::SCREEN_TIME_STEP,
         message: 'Phone screen time must be in 15-minute increments.'
     )]
     private ?int $phoneScreen = 0;
@@ -75,11 +75,11 @@ class JournalEntry
     #[ORM\Column]
     #[Range(
         notInRangeMessage: 'Tablet screen time must be between 0 and 360 minutes.',
-        min: 0,
-        max: 360
+        min: self::SCREEN_TIME_MIN,
+        max: self::SCREEN_TIME_MAX
     )]
     #[DivisibleBy(
-        value: 15,
+        value: self::SCREEN_TIME_STEP,
         message: 'Tablet screen time must be in 15-minute increments.'
     )]
     private ?int $tabletScreen = 0;
@@ -87,11 +87,11 @@ class JournalEntry
     #[ORM\Column]
     #[Range(
         notInRangeMessage: 'Console screen time must be between 0 and 360 minutes.',
-        min: 0,
-        max: 360
+        min: self::SCREEN_TIME_MIN,
+        max: self::SCREEN_TIME_MAX
     )]
     #[DivisibleBy(
-        value: 15,
+        value: self::SCREEN_TIME_STEP,
         message: 'Console screen time must be in 15-minute increments.'
     )]
     private ?int $consoleScreen = 0;
@@ -99,11 +99,11 @@ class JournalEntry
     #[ORM\Column]
     #[Range(
         notInRangeMessage: 'Other screen time must be between 0 and 360 minutes.',
-        min: 0,
-        max: 360
+        min: self::SCREEN_TIME_MIN,
+        max: self::SCREEN_TIME_MAX
     )]
     #[DivisibleBy(
-        value: 15,
+        value: self::SCREEN_TIME_STEP,
         message: 'Other screen time must be in 15-minute increments.'
     )]
     private ?int $otherScreen = 0;
@@ -118,13 +118,25 @@ class JournalEntry
     #[ORM\OneToMany(targetEntity: PainZone::class, mappedBy: 'journalEntry', orphanRemoval: true)]
     private Collection $painZones;
 
+
     /**
-     * Initializes the journal date and the pain zones collection.
+     * @var Collection<int, ContentRecommendation>
+     */
+    #[ORM\OneToMany(
+        targetEntity: ContentRecommendation::class,
+        mappedBy: 'journalEntry',
+        orphanRemoval: true
+    )]
+    private Collection $contentRecommendations;
+
+    /**
+     * Initializes the journal date and related collections.
      */
     public function __construct()
     {
         $this->date = new \DateTimeImmutable('today');
         $this->painZones = new ArrayCollection();
+        $this->contentRecommendations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -264,17 +276,22 @@ class JournalEntry
         return $this;
     }
 
-    public function removePainZone(PainZone $painZone): static
+    /**
+     * @return Collection<int, ContentRecommendation>
+     */
+    public function getContentRecommendations(): Collection
     {
-        if ($this->painZones->removeElement($painZone)) {
-            // set the owning side to null (unless already changed)
-            if ($painZone->getJournalEntry() === $this) {
-                $painZone->setJournalEntry(null);
-            }
+        return $this->contentRecommendations;
+    }
+
+    public function addContentRecommendation(ContentRecommendation $contentRecommendation): static
+    {
+        if (!$this->contentRecommendations->contains($contentRecommendation)) {
+            $this->contentRecommendations->add($contentRecommendation);
+            $contentRecommendation->setJournalEntry($this);
         }
 
         return $this;
     }
-
 
 }

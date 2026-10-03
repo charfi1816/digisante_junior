@@ -17,7 +17,7 @@ class WellnessContent
         'video' => ['name' => 'Vidéo'],
         'exercise' => ['name' => 'Exercice'],
     ];
-    
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -32,8 +32,7 @@ class WellnessContent
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $triggerRule = null;
+
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -91,17 +90,6 @@ class WellnessContent
         return $this;
     }
 
-    public function getTriggerRule(): ?string
-    {
-        return $this->triggerRule;
-    }
-
-    public function setTriggerRule(string $triggerRule): static
-    {
-        $this->triggerRule = $triggerRule;
-
-        return $this;
-    }
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {

@@ -213,17 +213,5 @@ class Child
         return $this;
     }
 
-    public function removeJournalEntry(JournalEntry $journalEntry): static
-    {
-        if ($this->journalEntries->removeElement($journalEntry)) {
-            // set the owning side to null (unless already changed)
-            if ($journalEntry->getChild() === $this) {
-                $journalEntry->setChild(null);
-            }
-        }
-
-        return $this;
-    }
-
 
 }
