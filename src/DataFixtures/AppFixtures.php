@@ -33,6 +33,16 @@ class AppFixtures extends Fixture
 
         $manager->persist($parent);
 
+        // Create the demo administrator account.
+        $admin = new User();
+        $admin->setEmail('admin@digisante.local');
+        $admin->setRoles([User::ROLE_ADMIN]);
+        $admin->setPassword(
+            $this->passwordHasher->hashPassword($admin, 'admin123')
+        );
+
+        $manager->persist($admin);
+
         // Create the child's login account.
         $childAccount = new User();
         $childAccount->setUsername('lea');

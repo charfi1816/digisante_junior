@@ -8,8 +8,8 @@ COMPOSER = $(DOCKER_COMPOSE) exec app composer
 
 .DEFAULT_GOAL := help
 
-.PHONY: help install up up-build down restart bash console composer cc \
-        migration migrate validate fixtures reset-db lint
+.PHONY: help install up up-build down restart php console composer cc \
+       migration migrate validate fixtures reset-db lint
 
 help: ## Display available commands
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2}'
@@ -35,7 +35,7 @@ down: ## Stop and remove Docker containers
 restart: ## Restart Docker containers
 	$(DOCKER_COMPOSE) restart
 
-bash: ## Open a shell inside the application container
+php: ## Open a shell inside the PHP application container
 	$(DOCKER_COMPOSE) exec app bash
 
 console: ## Run a Symfony command (example: make console ARGS="about")
