@@ -1,21 +1,44 @@
 <header class="site-header">
     <nav class="container header-nav">
-        <div>
-            <a href="{{ path('app_home') }}" class="header-brand">
-                <img
-                    src="{{ asset('images/logo-icon.svg') }}"
-                    alt="Logo Digi-Santé Junior"
-                    class="header-logo-icon"
-                >
-                <span>Digi-Santé Junior</span>
-            </a>
-        </div>
+
+        <a href="{{ path('app_home') }}" class="header-brand">
+            <img
+                src="{{ asset('images/logo-icon.svg') }}"
+                alt="Logo Digi-Santé Junior"
+                class="header-logo-icon"
+            >
+            <span>Digi-Santé Junior</span>
+        </a>
 
         <div class="header-actions">
-            <a href="#" class="header-link">Espace parent</a>
-            <a href="#" class="header-link">Espace enfant</a>
-            <a href="#" class="btn header-signup">Créer un compte</a>
+            {% if app.user %}
+
+                {% if is_granted('ROLE_CHILD') %}
+                    <a href="{{ path('app_child') }}" class="header-link">
+                        Mon espace
+                    </a>
+                {% elseif is_granted('ROLE_PARENT') %}
+                    <a href="{{ path('app_parent') }}" class="header-link">
+                        Mon espace
+                    </a>
+                {% endif %}
+
+                <a href="{{ path('app_logout') }}" class="header-link">
+                    Se déconnecter
+                </a>
+
+            {% else %}
+
+                <a href="{{ path('app_login') }}" class="header-link">
+                    Se connecter
+                </a>
+
+                <a href="{{ path('app_registration') }}" class="btn header-signup">
+                    S'inscrire
+                </a>
+
+            {% endif %}
         </div>
+
     </nav>
 </header>
-

@@ -1,20 +1,133 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ChildController!{% endblock %}
+{% block title %}Mon espace | Digi-Santé Junior{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <main class="container py-5 child-dashboard">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        <div class="d-flex align-items-center gap-3 mb-4">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/app/src/Controller/ChildController.php</code></li>
-        <li>Your template at <code>/app/templates/child/index.html.twig</code></li>
-    </ul>
-</div>
+            <div class="child-avatar">
+                {% if child.avatar %}
+                    <img
+                        src="{{ asset('images/avatars/' ~ child.avatar ~ '.svg') }}"
+                        alt="Avatar de {{ child.firstName }}"
+                        class="child-avatar-image"
+                    >
+                {% endif %}
+            </div>
+
+            <div>
+                <h1 class="mb-2">
+                    Salut {{ child.firstName }} !
+                </h1>
+
+                {% if todayJournal %}
+                    <p class="text-muted mb-0">
+                        Journal du {{ todayJournal.date|date('d/m/Y') }}
+                    </p>
+                {% else %}
+                    <p class="text-muted mb-0">
+                        Aujourd'hui : {{ 'now'|date('d/m/Y') }}
+                    </p>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <p class="lead mb-4">
+            Bienvenue dans ton espace bien-être numérique.
+        </p>
+
+
+        <div class="card rounded-4 shadow-sm mb-4">
+            <div class="card-body p-4">
+
+                <h2 class="h4">Mon temps d'écran</h2>
+
+                <p class="mb-2">
+                    Ma limite quotidienne :
+                    <strong>{{ child.dailyScreenLimit }} minutes</strong>
+                </p>
+
+                {% if todayJournal %}
+                    <p class="fs-2 fw-bold mb-2">
+                        {{ todayJournal.totalMinutes }} minutes
+                    </p>
+
+                    {% if todayJournal.totalMinutes <= child.dailyScreenLimit %}
+                        <div class="progress screen-progress mb-3">
+                            <div
+                                class="progress-bar bg-success w-100"
+                                role="progressbar"
+                                aria-label="Limite quotidienne respectée"
+                            ></div>
+                        </div>
+
+                        <p>Bravo, tu respectes ta limite !</p>
+                    {% else %}
+                        <div class="progress screen-progress mb-3">
+                            <div
+                                class="progress-bar bg-warning w-100"
+                                role="progressbar"
+                                aria-label="Limite quotidienne dépassée"
+                            ></div>
+                        </div>
+
+                        <p>
+                            Tu as dépassé ta limite.
+                            Pense à faire une pause !
+                        </p>
+                    {% endif %}
+
+                {% else %}
+                    <p class="text-muted mb-0">
+                        Tu n'as pas encore rempli ton journal aujourd'hui.
+                    </p>
+                {% endif %}
+
+            </div>
+        </div>
+
+        {# Journal card #}
+        <div class="card rounded-4 shadow-sm">
+            <div class="card-body p-4">
+
+                {% if todayJournal %}
+
+                    <p class="text-success fw-bold d-flex align-items-center gap-2">
+                    <h2 class="h4 mb-3">Mon journal</h2>
+                    <img
+                        src="{{ asset('images/icons/check-circle.svg') }}"
+                        alt=""
+                        class="journal-check-icon"
+                    >
+                    Ton journal est rempli aujourd'hui !
+                    </p>
+
+
+                    <p>
+                        Bravo {{ child.firstName }} !
+                        Tu peux revenir modifier tes réponses.
+                    </p>
+
+                    <a href="{{ path('app_child_journal') }}" class="btn btn-primary">
+                        Modifier mon journal
+                    </a>
+                {% else %}
+                    <p>
+                        Raconte combien de temps tu as passé
+                        devant les écrans aujourd'hui.
+                    </p>
+
+                    <a href="{{ path('app_child_journal') }}" class="btn btn-primary">
+                        Remplir mon journal
+                    </a>
+                {% endif %}
+
+
+            </div>
+        </div>
+
+    </main>
 {% endblock %}

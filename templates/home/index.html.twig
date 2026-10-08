@@ -9,98 +9,162 @@
             <div class="home-hero-content">
 
                 <div class="home-hero-left">
-                    <span class="home-badge">Pour les 8 à 14 ans</span>
+                    <span class="home-badge">
+                        Pour les 8 à 14 ans
+                    </span>
 
                     <h1 class="home-title">
-                        Mieux vivre avec les écrans, un jour à la fois.
+                        Mieux vivre avec les écrans,
+                        <span class="home-title-accent">
+                            un jour à la fois.
+                        </span>
                     </h1>
 
                     <p class="home-intro">
-                        Comprends mieux tes habitudes numériques et prends soin de ton bien-être au quotidien.
+                        Découvre comment mieux comprendre tes habitudes
+                        numériques et prendre soin de ton bien-être
+                        au quotidien.
                     </p>
 
-                    <div class="home-actions">
-                        <a href="#" class="btn home-child-button">
-                            Je suis un enfant
-                        </a>
+                    <ul class="home-highlights">
+                        <li>
+                            <span class="home-highlight-icon" aria-hidden="true">
+                                <img
+                                    src="{{ asset('images/icons/check-circle.svg') }}"
+                                    alt=""
+                                >
+                            </span>
+                            <span>Un espace adapté à ton âge</span>
+                        </li>
 
-                        <a href="#" class="btn home-parent-button">
-                            Je suis un parent
-                        </a>
-                    </div>
+                        <li>
+                            <span class="home-highlight-icon" aria-hidden="true">
+                                <img
+                                    src="{{ asset('images/icons/check-circle.svg') }}"
+                                    alt=""
+                                >
+                            </span>
+                            <span>Des outils simples à utiliser</span>
+                        </li>
 
-                    <p class="home-signup">
-                        Pas encore de compte ?
-                        <a href="#">Inscrivez-vous gratuitement</a>
-                    </p>
+                        <li>
+                            <span class="home-highlight-icon" aria-hidden="true">
+                                <img
+                                    src="{{ asset('images/icons/check-circle.svg') }}"
+                                    alt=""
+                                >
+                            </span>
+                            <span>Des conseils adaptés à tes besoins</span>
+                        </li>
+                    </ul>
                 </div>
 
                 <div class="home-hero-right">
-                    <div class="home-visual">
-                        <div class="home-visual-card">
-                            <h2 class="home-visual-title">
-                                Salut, moi c’est Digi !
-                            </h2>
+                    <div class="home-visual-card">
 
-                            <p class="home-visual-text">
-                                Je t’accompagne chaque jour pour mieux comprendre tes habitudes numériques.
-                            </p>
+                        <div class="home-digi-heading">
+                            <div class="home-digi-icon" aria-hidden="true">
+                                <img
+                                    src="{{ asset('images/icons/digi.svg') }}"
+                                    alt=""
+                                    class="home-digi-image"
+                                >
+                            </div>
 
-                            <div class="home-visual-features">
-                                <div class="home-visual-feature">
-                                    <span>Tes écrans</span>
-                                </div>
+                            <div>
+                                <h2 class="home-visual-title">
+                                    Salut, moi c'est Digi !
+                                </h2>
 
-                                <div class="home-visual-feature">
-                                    <span>Ton corps</span>
-                                </div>
+                                <p class="home-digi-subtitle">
+                                    Ton compagnon du quotidien
+                                </p>
                             </div>
                         </div>
+
+                        <p class="home-visual-text">
+                            Je t'aide à mieux comprendre tes habitudes
+                            numériques et à prendre soin de toi,
+                            à ton rythme.
+                        </p>
+
                     </div>
                 </div>
 
             </div>
-            <section class="home-benefits">
-                <div class="home-benefit-card">
-                    <img
-                        src="{{ asset('images/icons/recommendation.svg') }}"
-                        alt=""
-                        class="home-feature-icon"
-                    >
-                    <h2>Des conseils sur mesure</h2>
+
+            <section
+                class="home-benefits"
+                aria-label="Découvrir Digi-Santé Junior"
+            >
+
+                <article class="home-benefit-card">
+                    <div class="home-benefit-icon" aria-hidden="true">
+                        <img
+                            src="{{ asset('images/icons/journal.svg') }}"
+                            alt=""
+                            class="home-feature-icon"
+                        >
+                    </div>
+
+                    <h2>Mon journal</h2>
 
                     <p>
-                        Des recommandations adaptées pour adopter de meilleures habitudes numériques.
+                        Je note mon temps d'écran chaque jour.
                     </p>
-                </div>
+                </article>
 
-                <div class="home-benefit-card">
-                    <img
-                        src="{{ asset('images/icons/parent-tracking.svg') }}"
-                        alt=""
-                        class="home-feature-icon"
-                    >
-                    <h2>Un suivi clair pour les parents</h2>
+                <article class="home-benefit-card">
+                    <div class="home-benefit-icon" aria-hidden="true">
+                        <img
+                            src="{{ asset('images/icons/corps.svg') }}"
+                            alt=""
+                            class="home-feature-icon"
+                        >
+                    </div>
+
+                    <h2>Mon corps</h2>
 
                     <p>
-                        Suivez simplement les habitudes numériques et le bien-être de votre enfant.
+                        Je signale mes gênes sur une silhouette interactive.
                     </p>
-                </div>
+                </article>
 
-                <div class="home-benefit-card">
-                    <img
-                        src="{{ asset('images/icons/positive.svg') }}"
-                        alt=""
-                        class="home-feature-icon"
-                    >
-                    <h2>Un ton toujours positif</h2>
+                <article class="home-benefit-card">
+                    <div class="home-benefit-icon" aria-hidden="true">
+                        <img
+                            src="{{ asset('images/icons/conseils.svg') }}"
+                            alt=""
+                            class="home-feature-icon"
+                        >
+                    </div>
+
+                    <h2>Mes conseils</h2>
 
                     <p>
-                        Des conseils encourageants pour aider les enfants à progresser sans culpabiliser.
+                        Je découvre des recommandations adaptées à mes besoins.
                     </p>
-                </div>
+                </article>
+
+                <article class="home-benefit-card">
+                    <div class="home-benefit-icon" aria-hidden="true">
+                        <img
+                            src="{{ asset('images/icons/apprendre.svg') }}"
+                            alt=""
+                            class="home-feature-icon"
+                        >
+                    </div>
+
+                    <h2>J'apprends</h2>
+
+                    <p>
+                        Je découvre des articles, des vidéos et des exercices
+                        pour prendre soin de moi.
+                    </p>
+                </article>
+
             </section>
-        </div>
 
+        </div>
     </main>
 {% endblock %}

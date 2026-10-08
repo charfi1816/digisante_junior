@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription parent | Digi-Santé Junior{% endblock %}
+
+{% block body %}
+    <main class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+
+                <h1 class="h3 mb-3">Créer mon compte parent</h1>
+
+                <p class="text-muted mb-4">
+                    Créez votre compte pour accompagner votre enfant
+                    dans ses habitudes numériques.
+                </p>
+
+                <div class="card rounded-4 shadow-sm">
+                    <div class="card-body p-4">
+
+                        {{ form_start(registrationForm) }}
+
+                        {{ form_row(registrationForm.username) }}
+                        {{ form_row(registrationForm.email) }}
+                        {{ form_row(registrationForm.plainPassword) }}
+
+                        <button type="submit" class="btn btn-primary w-100 mt-3">
+                            Créer mon compte
+                        </button>
+
+                        {{ form_end(registrationForm) }}
+
+                    </div>
+                </div>
+
+                <p class="text-center mt-4">
+                    Déjà un compte ?
+                    <a href="{{ path('app_login') }}">Se connecter</a>
+                </p>
+
+            </div>
+        </div>
+    </main>
+{% endblock %}

@@ -1,263 +1,570 @@
-/* Design system */
+/* Variables */
+
 :root {
-    /* Primary colors */
     --color-primary-900: #173B60;
     --color-primary-700: #24528A;
 
-    /* Accent colors */
     --color-accent-600: #008C87;
-    --color-accent-500: #12A89D;
+    --color-accent-500: #12A39D;
     --color-accent-100: #DDF5F2;
 
-    /* Neutral colors */
     --color-background: #F4FAFA;
     --color-text-secondary: #5E7184;
     --color-surface: #FFFFFF;
+
+    --font-size-display-large: 2.5rem;
+    --line-height-display-large: 3rem;
+
+    --font-size-heading-large: 2rem;
+    --line-height-heading-large: 2.5rem;
+
+    --font-size-heading-medium: 1.5rem;
+    --line-height-heading-medium: 2rem;
+
+    --font-size-body-regular: 1rem;
+    --line-height-body-regular: 1.5rem;
+
+    --font-size-label-medium: 0.875rem;
+    --line-height-label-medium: 1.25rem;
+
+    --font-size-body-small: 0.875rem;
+    --line-height-body-small: 1.25rem;
+
+    --font-size-label-small: 0.75rem;
+    --line-height-label-small: 1rem;
+
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    --shadow-small: 0 4px 12px rgba(23, 59, 96, 0.04);
+    --shadow-medium: 0 6px 18px rgba(23, 59, 96, 0.05);
+    --shadow-large: 0 8px 24px rgba(23, 59, 96, 0.06);
 }
 
-/* Global styles */
+/* Global */
+
 body {
     margin: 0;
     background-color: var(--color-background);
+    color: var(--color-primary-900);
+    font-size: var(--font-size-body-regular);
+    line-height: var(--line-height-body-regular);
 }
 
 /* Header */
+
 .site-header {
-    padding: 1rem 0;
+    padding: 0.875rem 0;
     background-color: var(--color-primary-900);
 }
 
-/* Main navigation layout */
 .header-nav {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
 }
 
 .header-brand {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 0.75rem;
     color: var(--color-surface);
     text-decoration: none;
-    font-weight: 700;
+    font-size: 1.125rem;
+    font-weight: var(--font-weight-bold);
+    white-space: nowrap;
 }
 
-/* Logo icon displayed in the site header */
+.header-brand:hover {
+    color: var(--color-surface);
+}
+
 .header-logo-icon {
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.25rem;
 }
 
 .header-link {
     color: var(--color-surface);
     text-decoration: none;
+    font-size: var(--font-size-label-medium);
+    line-height: var(--line-height-label-medium);
+    font-weight: var(--font-weight-medium);
+    transition: color 0.2s ease;
 }
 
-/* Navigation actions */
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
+.header-link:hover {
+    color: var(--color-accent-100);
 }
 
 .header-signup {
+    padding: 0.625rem 1.25rem;
     background-color: var(--color-accent-600);
+    border: 1px solid var(--color-accent-600);
+    border-radius: 0.75rem;
     color: var(--color-surface);
+    font-size: var(--font-size-label-medium);
+    line-height: var(--line-height-label-medium);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.2s ease;
 }
 
 .header-signup:hover {
     background-color: var(--color-accent-500);
+    border-color: var(--color-accent-500);
     color: var(--color-surface);
 }
 
-/* Home hero */
-.home-hero {
-    padding: 5rem 0;
+.header-brand:focus-visible,
+.header-link:focus-visible,
+.header-signup:focus-visible {
+    outline: 2px solid var(--color-accent-100);
+    outline-offset: 4px;
 }
 
-/* Hero layout */
+/* Accueil */
+
+.home-hero {
+    padding: 4.5rem 0;
+}
+
+/* Hero */
+
 .home-hero-content {
     display: flex;
     align-items: center;
-    gap: 2.5rem;
+    gap: 4rem;
 }
 
-.home-hero-left,
+.home-hero-left {
+    flex: 1 1 55%;
+    min-width: 0;
+}
+
 .home-hero-right {
-    flex: 1;
+    flex: 1 1 45%;
+    min-width: 0;
 }
 
 .home-badge {
     display: inline-block;
-    padding: 0.375rem 0.75rem;
+    padding: 0.5rem 0.875rem;
     background-color: var(--color-accent-100);
+    border-radius: 2rem;
     color: var(--color-accent-600);
-    border-radius: 1.25rem;
-    font-size: 0.875rem;
-    font-weight: 600;
+    font-size: var(--font-size-label-medium);
+    line-height: var(--line-height-label-medium);
+    font-weight: var(--font-weight-semibold);
 }
 
 .home-title {
-    margin-top: 1.25rem;
+    margin: 1.5rem 0 0;
     color: var(--color-primary-900);
-    font-size: 2.5rem;
-    line-height: 3rem;
-    font-weight: 700;
+    font-size: var(--font-size-display-large);
+    line-height: var(--line-height-display-large);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: -0.025em;
+}
+
+.home-title-accent {
+    color: var(--color-accent-600);
 }
 
 .home-intro {
-    max-width: 35rem;
-    margin-top: 1rem;
+    max-width: 34rem;
+    margin: 1.25rem 0 0;
     color: var(--color-text-secondary);
-    font-size: 1rem;
-    line-height: 1.5rem;
+    font-size: var(--font-size-body-regular);
+    line-height: var(--line-height-body-regular);
+    font-weight: var(--font-weight-regular);
 }
 
-/* Hero buttons */
-.home-actions {
+/* Liste des avantages */
+
+.home-highlights {
     display: flex;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
+    flex-direction: column;
+    gap: 0.875rem;
+    margin: 1.75rem 0 0;
+    padding: 0;
+    list-style: none;
 }
 
-.home-child-button {
-    background-color: var(--color-accent-600);
-    color: var(--color-surface);
+.home-highlights li {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    color: var(--color-primary-900);
+    font-size: var(--font-size-body-small);
+    line-height: var(--line-height-body-small);
+    font-weight: var(--font-weight-regular);
 }
 
-.home-parent-button {
-    background-color: var(--color-primary-900);
-    color: var(--color-surface);
+.home-highlight-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
 }
 
-.home-child-button:hover {
-    background-color: var(--color-accent-500);
-    color: var(--color-surface);
+.home-highlight-icon img {
+    display: block;
+    width: 20px;
+    height: 20px;
 }
 
-.home-parent-button:hover {
-    background-color: var(--color-primary-700);
-    color: var(--color-surface);
-}
+/* Carte Digi */
 
-/* Registration link */
-.home-signup {
-    margin-top: 1rem;
-    color: var(--color-text-secondary);
-    font-size: 0.875rem;
-}
-
-.home-signup a {
-    color: var(--color-accent-600);
-    font-weight: 600;
-    text-decoration: none;
-}
-
-/* Hero information card */
 .home-visual-card {
     padding: 2rem;
     background-color: var(--color-surface);
-    border-radius: 1rem;
+    border: 1px solid #E2EEEE;
+    border-radius: 1.5rem;
+    box-shadow: var(--shadow-large);
+}
+
+.home-digi-heading {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.home-digi-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+}
+
+.home-digi-image {
+    display: block;
+    width: 36px;
+    height: 36px;
 }
 
 .home-visual-title {
+    margin: 0;
     color: var(--color-primary-900);
-    font-size: 1.5rem;
-    line-height: 2rem;
-    font-weight: 700;
+    font-size: var(--font-size-heading-medium);
+    line-height: var(--line-height-heading-medium);
+    font-weight: var(--font-weight-bold);
+}
+
+.home-digi-subtitle {
+    margin: 0.375rem 0 0;
+    color: var(--color-accent-600);
+    font-size: var(--font-size-label-medium);
+    line-height: var(--line-height-label-medium);
+    font-weight: var(--font-weight-semibold);
 }
 
 .home-visual-text {
-    margin-top: 0.75rem;
-    margin-bottom: 0;
+    margin: 1.5rem 0 0;
     color: var(--color-text-secondary);
-    font-size: 1rem;
-    line-height: 1.5rem;
+    font-size: var(--font-size-body-regular);
+    line-height: var(--line-height-body-regular);
 }
 
-/* Hero feature cards */
-.home-visual-features {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
-}
+/* Cartes des fonctionnalités */
 
-.home-visual-feature {
-    padding: 1rem;
-    background-color: var(--color-accent-100);
-    border-radius: 0.75rem;
-    color: var(--color-primary-900);
-    font-weight: 600;
-}
-
-/* Home benefits */
 .home-benefits {
     display: flex;
-    gap: 1.5rem;
-    margin-top: 2rem;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-top: 3rem;
 }
 
-/* Feature card icons */
+.home-benefit-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 1.5rem;
+    background-color: var(--color-surface);
+    border: 1px solid #E2EEEE;
+    border-radius: 1.25rem;
+    box-shadow: var(--shadow-medium);
+}
+
+.home-benefit-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    margin-bottom: 1rem;
+}
+
 .home-feature-icon {
+    display: block;
+    width: 28px;
+    height: 28px;
+}
+
+.home-benefit-card h2 {
+    margin: 0 0 0.5rem;
+    color: var(--color-primary-900);
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+    font-weight: var(--font-weight-bold);
+}
+
+.home-benefit-card p {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-body-small);
+    line-height: var(--line-height-body-small);
+}
+
+/* Tableau de bord enfant */
+
+.child-dashboard {
+    max-width: 1000px;
+}
+
+.child-dashboard h1 {
+    color: var(--color-primary-900);
+    font-size: var(--font-size-heading-large);
+    line-height: var(--line-height-heading-large);
+    font-weight: var(--font-weight-bold);
+}
+
+.child-dashboard h2 {
+    color: var(--color-primary-900);
+    font-size: var(--font-size-heading-medium);
+    line-height: var(--line-height-heading-medium);
+    font-weight: var(--font-weight-bold);
+}
+
+.child-dashboard .card {
+    border: none;
+    border-radius: 24px;
+    box-shadow: var(--shadow-large);
+}
+
+.child-dashboard .card-body {
+    padding: 32px;
+}
+
+/* Avatar */
+
+.child-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 75px;
+    height: 75px;
+    flex-shrink: 0;
+    overflow: hidden;
+    background-color: var(--color-surface);
+    border-radius: 50%;
+    font-size: 36px;
+    box-shadow: var(--shadow-small);
+}
+
+.child-avatar-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Temps d'écran */
+
+.child-dashboard .screen-progress {
+    height: 18px;
+    border-radius: 20px;
+}
+
+.child-dashboard .progress-bar {
+    border-radius: 20px;
+}
+
+/* Boutons */
+
+.child-dashboard .btn-primary {
+    padding: 12px 20px;
+    background-color: var(--color-accent-600);
+    border-color: var(--color-accent-600);
+    border-radius: 12px;
+    font-weight: var(--font-weight-semibold);
+}
+
+.child-dashboard .btn-primary:hover {
+    background-color: var(--color-accent-500);
+    border-color: var(--color-accent-500);
+}
+
+/* Journal */
+
+.journal-check-icon {
     width: 24px;
     height: 24px;
 }
 
-.home-benefit-card {
-    flex: 1;
-    padding: 1.5rem;
-    background-color: var(--color-surface);
-    border-radius: 1rem;
-    box-shadow: 0 0.25rem 0.5rem #dddddd;
+.journal-screen-card {
+    height: 100%;
+    padding: 20px;
+    background-color: var(--color-background);
+    border: 1px solid #D7E7E7;
+    border-radius: 14px;
 }
 
-.home-benefit-card h2 {
+.journal-screen-card label {
+    display: block;
+    margin-bottom: 10px;
     color: var(--color-primary-900);
-    font-size: 1rem;
-    line-height: 1.5rem;
-    font-weight: 600;
+    font-size: var(--font-size-body-regular);
+    line-height: var(--line-height-body-regular);
+    font-weight: var(--font-weight-semibold);
 }
 
-.home-benefit-card p {
-    margin-bottom: 0;
-    color: var(--color-text-secondary);
-    font-size: 0.875rem;
-    line-height: 1.25rem;
+.journal-screen-card input[type="number"] {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    padding: 12px;
+    background-color: var(--color-surface);
+    border: 1px solid #D7E7E7;
+    border-radius: 10px;
+    color: var(--color-primary-900);
+    font-size: 1.1rem;
+}
+
+.journal-screen-card input[type="number"]:focus {
+    border-color: var(--color-accent-600);
+    outline: 2px solid var(--color-accent-600);
+    outline-offset: 2px;
+}
+
+.journal-screen-card .mb-3 {
+    margin-bottom: 0 !important;
 }
 
 /* Footer */
+
 .site-footer {
     padding: 1.5rem 0;
     color: var(--color-text-secondary);
     text-align: center;
-    font-size: 0.875rem;
+    font-size: var(--font-size-body-small);
+    line-height: var(--line-height-body-small);
 }
 
 .site-footer p {
     margin: 0;
 }
 
-/* Responsive layout */
+/* Responsive tablette */
+
 @media (max-width: 991px) {
     .home-hero-content {
         flex-direction: column;
         align-items: stretch;
+        gap: 2.5rem;
     }
 
+    .home-hero-left,
+    .home-hero-right {
+        flex: 1 1 auto;
+    }
+
+    .home-benefit-card {
+        flex: 1 1 calc(50% - 0.625rem);
+    }
+}
+
+/* Responsive mobile */
+
+@media (max-width: 575px) {
     .header-nav {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.75rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.875rem;
+    }
+
+    .header-brand {
+        font-size: 1rem;
+    }
+
+    .header-logo-icon {
+        width: 28px;
+        height: 28px;
     }
 
     .header-actions {
+        justify-content: center;
         flex-wrap: wrap;
-        gap: 0.75rem;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .header-signup {
+        padding: 0.5rem 1rem;
+    }
+
+    .home-hero {
+        padding: 3rem 0;
+    }
+
+    .home-title {
+        font-size: 2rem;
+        line-height: 2.5rem;
+    }
+
+    .home-visual-card {
+        padding: 1.5rem;
+    }
+
+    .home-digi-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .home-digi-image {
+        width: 30px;
+        height: 30px;
+    }
+
+    .home-visual-title {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
     }
 
     .home-benefits {
         flex-direction: column;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    .home-benefit-card {
+        flex: 1 1 auto;
+        width: 100%;
+    }
+
+    .child-dashboard .card-body {
+        padding: 20px;
+    }
+
+    .journal-screen-card {
+        padding: 16px;
     }
 }

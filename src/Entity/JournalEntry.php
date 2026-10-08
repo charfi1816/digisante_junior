@@ -7,27 +7,18 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\DivisibleBy;
 use Symfony\Component\Validator\Constraints\Range;
 
 
-/**
- * Represents a child's daily screen time journal entry.
- *
- * Each child can have only one journal entry per day.
- */
 #[ORM\Entity(repositoryClass: JournalEntryRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_JOURNAL_ENTRY_CHILD_DATE', columns: ['child_id', 'date'])]
 class JournalEntry
 {
-
-    /**
-     * Screen time limits in minutes.
-     */
+    /**Screen time limits in minutes.**/
     public const SCREEN_TIME_MIN = 0;
     public const SCREEN_TIME_MAX = 360;
-    public const SCREEN_TIME_STEP = 15;
     public const DAILY_SCREEN_TIME_MAX = 960;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -42,10 +33,6 @@ class JournalEntry
         min: self::SCREEN_TIME_MIN,
         max: self::SCREEN_TIME_MAX
     )]
-    #[DivisibleBy(
-        value: self::SCREEN_TIME_STEP,
-        message: 'TV screen time must be in 15-minute increments.'
-    )]
     private ?int $tvScreen = 0;
 
     #[ORM\Column]
@@ -53,10 +40,6 @@ class JournalEntry
         notInRangeMessage: 'PC screen time must be between 0 and 360 minutes.',
         min: self::SCREEN_TIME_MIN,
         max: self::SCREEN_TIME_MAX
-    )]
-    #[DivisibleBy(
-        value: self::SCREEN_TIME_STEP,
-        message: 'PC screen time must be in 15-minute increments.'
     )]
     private ?int $pcScreen = 0;
 
@@ -66,10 +49,6 @@ class JournalEntry
         min: self::SCREEN_TIME_MIN,
         max: self::SCREEN_TIME_MAX
     )]
-    #[DivisibleBy(
-        value: self::SCREEN_TIME_STEP,
-        message: 'Phone screen time must be in 15-minute increments.'
-    )]
     private ?int $phoneScreen = 0;
 
     #[ORM\Column]
@@ -77,10 +56,6 @@ class JournalEntry
         notInRangeMessage: 'Tablet screen time must be between 0 and 360 minutes.',
         min: self::SCREEN_TIME_MIN,
         max: self::SCREEN_TIME_MAX
-    )]
-    #[DivisibleBy(
-        value: self::SCREEN_TIME_STEP,
-        message: 'Tablet screen time must be in 15-minute increments.'
     )]
     private ?int $tabletScreen = 0;
 
@@ -90,10 +65,6 @@ class JournalEntry
         min: self::SCREEN_TIME_MIN,
         max: self::SCREEN_TIME_MAX
     )]
-    #[DivisibleBy(
-        value: self::SCREEN_TIME_STEP,
-        message: 'Console screen time must be in 15-minute increments.'
-    )]
     private ?int $consoleScreen = 0;
 
     #[ORM\Column]
@@ -101,10 +72,6 @@ class JournalEntry
         notInRangeMessage: 'Other screen time must be between 0 and 360 minutes.',
         min: self::SCREEN_TIME_MIN,
         max: self::SCREEN_TIME_MAX
-    )]
-    #[DivisibleBy(
-        value: self::SCREEN_TIME_STEP,
-        message: 'Other screen time must be in 15-minute increments.'
     )]
     private ?int $otherScreen = 0;
 
@@ -115,9 +82,12 @@ class JournalEntry
     /**
      * @var Collection<int, PainZone>
      */
-    #[ORM\OneToMany(targetEntity: PainZone::class, mappedBy: 'journalEntry', orphanRemoval: true)]
+    #[ORM\OneToMany(
+        targetEntity: PainZone::class,
+        mappedBy: 'journalEntry',
+        orphanRemoval: true
+    )]
     private Collection $painZones;
-
 
     /**
      * @var Collection<int, ContentRecommendation>
@@ -129,9 +99,7 @@ class JournalEntry
     )]
     private Collection $contentRecommendations;
 
-    /**
-     * Initializes the journal date and related collections.
-     */
+    /** Initializes the journal date and related collections.**/
     public function __construct()
     {
         $this->date = new \DateTimeImmutable('today');
@@ -240,10 +208,7 @@ class JournalEntry
         return $this;
     }
 
-
-    /**
-     * Calculates the total screen time in minutes.
-     */
+    /** Calculates the total screen time in minutes.**/
     #[Range(
         notInRangeMessage: 'Total daily screen time cannot exceed 960 minutes.',
         max: self::DAILY_SCREEN_TIME_MAX
@@ -293,5 +258,4 @@ class JournalEntry
 
         return $this;
     }
-
 }
