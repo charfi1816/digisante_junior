@@ -29,8 +29,12 @@
 
             {% else %}
 
-                <a href="{{ path('app_login') }}" class="header-link">
-                    Se connecter
+                <a href="{{ path('app_login_parent') }}" class="header-link">
+                    Espace parent
+                </a>
+
+                <a href="{{ path('app_login_child') }}" class="header-link">
+                    Espace enfant
                 </a>
 
                 <a href="{{ path('app_registration') }}" class="btn header-signup">

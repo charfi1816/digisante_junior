@@ -9,24 +9,35 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    #[Route(path: '/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    #[Route('/login', name: 'app_login')]
+    public function login(): Response
     {
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
+        return $this->redirectToRoute('app_login_parent');
+    }
 
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
-
+    #[Route('/login/parent', name: 'app_login_parent')]
+    public function loginParent(AuthenticationUtils $authenticationUtils): Response
+    {
         return $this->render('security/login.html.twig', [
-            'last_username' => $lastUsername,
-            'error' => $error,
+            'last_username' => $authenticationUtils->getLastUsername(),
+            'error' => $authenticationUtils->getLastAuthenticationError(),
         ]);
     }
 
-    #[Route(path: '/logout', name: 'app_logout')]
+    #[Route('/login/enfant', name: 'app_login_child')]
+    public function loginChild(AuthenticationUtils $authenticationUtils): Response
+    {
+        return $this->render('security/login.html.twig', [
+            'last_username' => $authenticationUtils->getLastUsername(),
+            'error' => $authenticationUtils->getLastAuthenticationError(),
+        ]);
+    }
+
+    #[Route('/logout', name: 'app_logout')]
     public function logout(): void
     {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        throw new \LogicException(
+            'This method is intercepted by the Symfony firewall.'
+        );
     }
 }
