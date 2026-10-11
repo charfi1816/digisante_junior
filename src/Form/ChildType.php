@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Child;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -30,30 +29,23 @@ class ChildType extends AbstractType
                 'input' => 'datetime_immutable',
             ])
             ->add('avatar', ChoiceType::class, [
-                'label' => 'Avatar',
+                'label' => 'Choisir un avatar',
                 'choices' => [
                     'Renard' => 'fox',
                     'Panda' => 'panda',
                     'Chat' => 'cat',
                     'Lion' => 'lion',
                 ],
+                'expanded' => true,
+                'multiple' => false,
+
             ])
             ->add('dailyScreenLimit', IntegerType::class, [
                 'label' => 'Limite quotidienne (minutes)',
             ])
-            ->add('username', TextType::class, [
-                'label' => 'Identifiant de connexion',
+            ->add('plainPassword', PasswordType::class, [
+                'label' => 'Mot de passe',
                 'mapped' => false,
-            ])
-            ->add('plainPassword', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'mapped' => false,
-                'first_options' => [
-                    'label' => 'Mot de passe',
-                ],
-                'second_options' => [
-                    'label' => 'Confirmer le mot de passe',
-                ],
             ]);
     }
 

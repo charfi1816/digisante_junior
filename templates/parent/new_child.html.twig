@@ -4,24 +4,65 @@
 
 {% block body %}
     <main class="container py-5">
-        <h1 class="mb-4">Ajouter un enfant</h1>
 
-        <div class="card">
-            <div class="card-body">
-                {{ form_start(form) }}
+        <div class="child-form-container">
 
-                {{ form_widget(form) }}
+            <a href="{{ path('app_parent') }}" class="login-switch-link">
+                Retour à mes enfants
+            </a>
 
-                <button type="submit" class="btn btn-primary mt-3">
-                    Enregistrer
-                </button>
+            <div class="card rounded-4 shadow-sm mt-3">
+                <div class="card-body p-4 p-md-5">
 
-                {{ form_end(form) }}
+                    <h1 class="h2 mb-3">Ajouter un enfant</h1>
+
+                    <p class="text-secondary mb-4">
+                        Renseignez les informations de votre enfant
+                        pour créer son profil.
+                    </p>
+
+                    {{ form_start(form) }}
+
+                    {{ form_row(form.firstName) }}
+                    {{ form_row(form.lastName) }}
+                    {{ form_row(form.birthDate) }}
+
+                    <div class="mb-4">
+                        {{ form_label(form.avatar) }}
+
+                        <div class="avatar-options">
+                            {% for avatar in form.avatar %}
+                                <label class="avatar-option">
+
+                                    {{ form_widget(avatar) }}
+
+                                    <img
+                                        src="{{ asset('images/avatars/' ~ avatar.vars.value ~ '.svg') }}"
+                                        alt="{{ avatar.vars.label }}"
+                                    >
+
+                                    <span>{{ avatar.vars.label }}</span>
+
+                                </label>
+                            {% endfor %}
+                        </div>
+
+                        {{ form_errors(form.avatar) }}
+                    </div>
+
+                    {{ form_row(form.dailyScreenLimit) }}
+                    {{ form_row(form.plainPassword) }}
+
+                    <button type="submit" class="btn btn-primary mt-3">
+                        Créer le profil et le compte
+                    </button>
+
+                    {{ form_end(form) }}
+
+                </div>
             </div>
+
         </div>
 
-        <a href="{{ path('app_parent') }}" class="btn btn-link mt-3">
-            Retour à mes enfants
-        </a>
     </main>
 {% endblock %}

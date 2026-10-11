@@ -3,31 +3,56 @@
 {% block title %}Mes enfants | Digi-Santé Junior{% endblock %}
 
 {% block body %}
-    <main class="container py-5">
-        <h1 class="mb-4">Mes enfants</h1>
-        <a href="{{ path('app_parent_child_new') }}" class="btn btn-primary mb-4">
-            Ajouter un enfant
-        </a>
 
-        {% for child in children %}
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h2 class="h4">
-                        {{ child.firstName }} {{ child.lastName }}
-                    </h2>
-
-                    <p class="mb-1">
-                        Avatar : {{ child.avatar }}
-                    </p>
-
-                    <p class="mb-0">
-                        Limite quotidienne :
-                        {{ child.dailyScreenLimit }} minutes
-                    </p>
-                </div>
+    {% for message in app.flashes('success') %}
+        <div class="container mt-3">
+            <div class="alert alert-success" role="alert">
+                {{ message }}
             </div>
-        {% else %}
-            <p>Vous n'avez pas encore ajouté d'enfant.</p>
-        {% endfor %}
+        </div>
+    {% endfor %}
+
+    <main class="container py-5">
+
+        <div class="children-header">
+            <div>
+                <h1>Mes enfants</h1>
+                <p>Gérez les profils de vos enfants.</p>
+            </div>
+
+            <a href="{{ path('app_parent_child_new') }}" class="btn children-add-btn">
+                Ajouter un enfant
+            </a>
+        </div>
+
+        <div class="children-list">
+            {% for child in children %}
+
+                <article class="children-card">
+                    <div class="children-card-avatar">
+                        <img
+                            src="{{ asset('images/avatars/' ~ child.avatar ~ '.svg') }}"
+                            alt="Avatar de {{ child.firstName }}"
+                            class="children-avatar-image"
+                        >
+                    </div>
+
+                    <h2>{{ child.firstName }} {{ child.lastName }}</h2>
+                    <p>
+                        Identifiant:
+                        <strong>{{ child.account.username }}</strong>
+                    </p>
+
+                    <p>
+                        Limite quotidienne :
+                        <strong>{{ child.dailyScreenLimit }} minutes</strong>
+                    </p>
+                </article>
+
+            {% else %}
+                <p>Vous n'avez pas encore ajouté d'enfant.</p>
+            {% endfor %}
+        </div>
+
     </main>
 {% endblock %}

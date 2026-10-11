@@ -2,7 +2,6 @@
 
 :root {
     --color-primary-900: #173B60;
-    --color-primary-700: #24528A;
 
     --color-accent-600: #008C87;
     --color-accent-500: #12A39D;
@@ -29,11 +28,6 @@
 
     --font-size-body-small: 0.875rem;
     --line-height-body-small: 1.25rem;
-
-    --font-size-label-small: 0.75rem;
-    --line-height-label-small: 1rem;
-
-    --font-weight-regular: 400;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
@@ -43,7 +37,7 @@
     --shadow-large: 0 8px 24px rgba(23, 59, 96, 0.06);
 }
 
-/* Global */
+/* Global styles */
 
 body {
     margin: 0;
@@ -135,13 +129,13 @@ body {
     outline-offset: 4px;
 }
 
-/* Accueil */
+/* Home page */
 
 .home-hero {
     padding: 4.5rem 0;
 }
 
-/* Hero */
+/* Hero section */
 
 .home-hero-content {
     display: flex;
@@ -189,10 +183,9 @@ body {
     color: var(--color-text-secondary);
     font-size: var(--font-size-body-regular);
     line-height: var(--line-height-body-regular);
-    font-weight: var(--font-weight-regular);
 }
 
-/* Liste des avantages */
+/* Benefits list */
 
 .home-highlights {
     display: flex;
@@ -210,7 +203,6 @@ body {
     color: var(--color-primary-900);
     font-size: var(--font-size-body-small);
     line-height: var(--line-height-body-small);
-    font-weight: var(--font-weight-regular);
 }
 
 .home-highlight-icon {
@@ -228,7 +220,7 @@ body {
     height: 20px;
 }
 
-/* Carte Digi */
+/* Digi card */
 
 .home-visual-card {
     padding: 2rem;
@@ -282,14 +274,14 @@ body {
     line-height: var(--line-height-body-regular);
 }
 
-/* Cartes des fonctionnalités */
-
 .home-benefits {
     display: flex;
     flex-wrap: wrap;
     gap: 1.25rem;
     margin-top: 3rem;
 }
+
+/* Feature cards */
 
 .home-benefit-card {
     display: flex;
@@ -335,7 +327,7 @@ body {
     line-height: var(--line-height-body-small);
 }
 
-/* Tableau de bord enfant */
+/* Child dashboard */
 
 .child-dashboard {
     max-width: 1000px;
@@ -377,7 +369,6 @@ body {
     overflow: hidden;
     background-color: var(--color-surface);
     border-radius: 50%;
-    font-size: 36px;
     box-shadow: var(--shadow-small);
 }
 
@@ -387,7 +378,55 @@ body {
     object-fit: cover;
 }
 
-/* Temps d'écran */
+/* Avatar selection */
+
+.avatar-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.avatar-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    border: 2px solid #D7E7E7;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.avatar-option img {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+}
+
+.avatar-option input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+.avatar-option input + label {
+    display: none;
+}
+
+/* Selected avatar */
+
+.avatar-option:has(input:checked) {
+    border-color: var(--color-accent-600);
+    background-color: var(--color-accent-100);
+}
+
+.avatar-option:hover {
+    border-color: var(--color-accent-600);
+}
+
+/* Screen time */
 
 .child-dashboard .screen-progress {
     height: 18px;
@@ -398,9 +437,9 @@ body {
     border-radius: 20px;
 }
 
-/* Boutons */
+/* Buttons */
 
-.child-dashboard .btn-primary {
+.btn.btn-primary {
     padding: 12px 20px;
     background-color: var(--color-accent-600);
     border-color: var(--color-accent-600);
@@ -408,7 +447,7 @@ body {
     font-weight: var(--font-weight-semibold);
 }
 
-.child-dashboard .btn-primary:hover {
+.btn.btn-primary:hover {
     background-color: var(--color-accent-500);
     border-color: var(--color-accent-500);
 }
@@ -473,7 +512,7 @@ body {
     margin: 0;
 }
 
-/* Responsive tablette */
+/* Tablet responsive styles */
 
 @media (max-width: 991px) {
     .home-hero-content {
@@ -492,7 +531,7 @@ body {
     }
 }
 
-/* Responsive mobile */
+/* Mobile responsive styles */
 
 @media (max-width: 575px) {
     .header-nav {
@@ -566,5 +605,172 @@ body {
 
     .journal-screen-card {
         padding: 16px;
+    }
+}
+
+/* Login pages */
+
+.login-child-avatar {
+    display: block;
+    width: 88px;
+    height: 88px;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+
+.login-card {
+    width: 100%;
+    max-width: 480px;
+}
+
+.btn.login-submit {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: var(--color-accent-600);
+    border: 1px solid var(--color-accent-600);
+    border-radius: 0.75rem;
+    color: var(--color-surface);
+    font-weight: var(--font-weight-semibold);
+}
+
+.btn.login-submit:hover,
+.btn.login-submit:focus {
+    background-color: #007570;
+    border-color: #007570;
+    color: var(--color-surface);
+}
+
+.login-switch-link {
+    color: var(--color-accent-600);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+}
+
+.login-switch-link:hover {
+    color: #007570;
+    text-decoration: underline;
+}
+
+.login-card .form-control:focus {
+    border-color: var(--color-accent-600);
+    box-shadow: 0 0 0 0.2rem rgba(0, 140, 135, 0.16);
+}
+
+/* Children management page */
+
+.children-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.children-header h1 {
+    margin: 0 0 0.5rem;
+    color: var(--color-primary-900);
+    font-size: var(--font-size-heading-large);
+    line-height: var(--line-height-heading-large);
+    font-weight: var(--font-weight-bold);
+}
+
+.children-header p {
+    margin: 0;
+    color: var(--color-text-secondary);
+}
+
+.btn.children-add-btn {
+    padding: 0.75rem 1.25rem;
+    background-color: var(--color-accent-600);
+    border: 1px solid var(--color-accent-600);
+    border-radius: 0.75rem;
+    color: var(--color-surface);
+    font-weight: var(--font-weight-semibold);
+}
+
+.btn.children-add-btn:hover,
+.btn.children-add-btn:focus {
+    background-color: #007570;
+    border-color: #007570;
+    color: var(--color-surface);
+}
+
+/* Child creation form */
+
+.child-form-container {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+
+/* Children cards */
+
+.children-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+}
+
+.children-card {
+    flex: 0 1 calc(50% - 0.625rem);
+    min-width: 0;
+    padding: 1.75rem;
+    background-color: var(--color-surface);
+    border: 1px solid #E2EEEE;
+    border-radius: 1rem;
+    box-shadow: var(--shadow-medium);
+}
+
+.children-card h2 {
+    margin: 0 0 1rem;
+    color: var(--color-primary-900);
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: var(--font-weight-bold);
+}
+
+.children-card p {
+    margin: 0;
+    color: var(--color-text-secondary);
+}
+
+.children-card strong {
+    color: var(--color-accent-600);
+}
+
+/* Children avatars */
+
+.children-card-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 76px;
+    height: 76px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    background-color: var(--color-accent-100);
+    border-radius: 50%;
+}
+
+.children-avatar-image {
+    display: block;
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+}
+
+/* Children page mobile styles */
+
+@media (max-width: 767px) {
+    .children-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .children-card {
+        flex: 1 1 100%;
     }
 }

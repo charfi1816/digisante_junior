@@ -1,38 +1,88 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connexion parent | Digi-Santé Junior{% endblock %}
 
 {% block body %}
-    <form method="post">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+    <main class="container py-5">
 
-        {% if app.user %}
-            <div class="mb-3">
-                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ logout_path() }}">Logout</a>
-            </div>
-        {% endif %}
+        <div class="mx-auto bg-white rounded-4 shadow-sm p-4 p-md-5 login-card">
 
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="username">Username</label>
-        <input type="text" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="username" required autofocus>
-        <label for="password">Password</label>
-        <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
-        <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+            <h1 class="h2 text-center fw-bold mb-3">
+                Espace parent
+            </h1>
 
-        {#
-            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-            See https://symfony.com/doc/current/security/remember_me.html
+            <p class="text-center text-secondary mb-4">
+                Connectez-vous à votre compte parent.
+            </p>
 
-            <div class="checkbox mb-3">
-                <input type="checkbox" name="_remember_me" id="_remember_me">
-                <label for="_remember_me">Remember me</label>
-            </div>
-        #}
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
 
-        <button class="btn btn-lg btn-primary" type="submit">
-            Sign in
-        </button>
-    </form>
+            <form method="post" action="{{ path('app_login') }}">
+                <input type="hidden" name="_target_path" value="{{ path('app_parent') }}">
+
+                <div class="mb-3">
+                    <label for="email" class="form-label fw-semibold">
+                        Adresse e-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="_username"
+                        class="form-control"
+                        value="{{ last_username }}"
+                        placeholder="parent@exemple.fr"
+                        autocomplete="email"
+                        required
+                        autofocus
+                    >
+                </div>
+
+                <div class="mb-4">
+                    <label for="password" class="form-label fw-semibold">
+                        Mot de passe
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="_password"
+                        class="form-control"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <input
+                    type="hidden"
+                    name="_csrf_token"
+                    value="{{ csrf_token('authenticate') }}"
+                >
+
+                <button type="submit" class="btn login-submit">
+                    Se connecter
+                </button>
+
+
+            </form>
+
+            <p class="text-center mt-4 mb-2">
+                Pas encore de compte ?
+                <a href="{{ path('app_registration') }}" class="login-switch-link">
+                    Créer un compte parent
+                </a>
+            </p>
+
+            <p class="text-center mb-0">
+                <a href="{{ path('app_login_child') }}" class="login-switch-link">
+                    Accéder à l'espace enfant
+                </a>
+            </p>
+        </div>
+
+    </main>
 {% endblock %}

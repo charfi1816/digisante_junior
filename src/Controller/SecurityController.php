@@ -27,7 +27,7 @@ class SecurityController extends AbstractController
     #[Route('/login/enfant', name: 'app_login_child')]
     public function loginChild(AuthenticationUtils $authenticationUtils): Response
     {
-        return $this->render('security/login.html.twig', [
+        return $this->render('security/login_child.html.twig', [
             'last_username' => $authenticationUtils->getLastUsername(),
             'error' => $authenticationUtils->getLastAuthenticationError(),
         ]);
