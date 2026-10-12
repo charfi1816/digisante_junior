@@ -3,14 +3,15 @@
 namespace App\Form;
 
 use App\Entity\Child;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 
 class ChildType extends AbstractType
 {
@@ -38,14 +39,19 @@ class ChildType extends AbstractType
                 ],
                 'expanded' => true,
                 'multiple' => false,
-
             ])
             ->add('dailyScreenLimit', IntegerType::class, [
                 'label' => 'Limite quotidienne (minutes)',
             ])
-            ->add('plainPassword', PasswordType::class, [
+            ->add('password', PasswordType::class, [
                 'label' => 'Mot de passe',
                 'mapped' => false,
+                'constraints' => [
+                    new Length(
+                        min: 8,
+                        minMessage: 'Le mot de passe doit contenir au moins 8 caractères.'
+                    ),
+                ],
             ]);
     }
 

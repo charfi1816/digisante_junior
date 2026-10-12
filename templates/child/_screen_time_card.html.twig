@@ -1,0 +1,45 @@
+<div class="card mb-4">
+    <div class="card-body">
+        <h2 class="h4 mb-3">Mon temps d'écran</h2>
+
+        {% if todayJournal %}
+
+            <p class="screen-time-summary mb-3">
+                <strong class="screen-time-value">
+                    {{ todayJournal.totalMinutes }} min
+                </strong>
+                <span class="screen-time-target">
+                      / {{ child.dailyScreenLimit }} min prévues
+                </span>
+            </p>
+
+            <div class="progress screen-progress mb-3">
+                <div
+                    class="progress-bar {{ todayJournal.totalMinutes > child.dailyScreenLimit ? 'bg-warning' : 'bg-accent' }}"
+                    style="width: {{ percentage }}%;"
+                    role="progressbar"
+                    aria-label="Progression du temps d'écran"
+                    aria-valuenow="{{ todayJournal.totalMinutes }}"
+                    aria-valuemin="0"
+                    aria-valuemax="{{ child.dailyScreenLimit }}"
+                ></div>
+            </div>
+
+            {% if todayJournal.totalMinutes <= child.dailyScreenLimit %}
+                <p class="mb-0">
+                    Bravo, tu respectes ta limite !
+                </p>
+            {% else %}
+                <p class="mb-0">
+                    Tu as dépassé ta limite.
+                    Pense à faire une pause !
+                </p>
+            {% endif %}
+
+        {% else %}
+            <p class="text-muted mb-0">
+                Tu n'as pas encore rempli ton journal aujourd'hui.
+            </p>
+        {% endif %}
+    </div>
+</div>

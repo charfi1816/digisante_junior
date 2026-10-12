@@ -29,6 +29,9 @@
                             </div>
                         {% endif %}
                     {% endfor %}
+                    <p class="mt-4">
+                        Temps total : <strong class="screen-total">0 minutes</strong>
+                    </p>
 
                 </div>
 
@@ -40,10 +43,6 @@
 
             </div>
         </div>
-
-        <a href="{{ path('app_child') }}" class="btn btn-link mt-3">
-            ← Retour à mon espace
-        </a>
 
     </main>
 {% endblock %}

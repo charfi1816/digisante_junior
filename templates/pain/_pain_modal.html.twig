@@ -1,0 +1,27 @@
+<div class="modal fade  pain-modal">
+    <div class="modal-dialog">
+        <div class="modal-content p-3">
+
+            <h2 class="fs-5 pain-modal-title">
+                Quelle est l'intensité de ta douleur ?
+            </h2>
+
+            <div class="d-flex gap-2">
+                {% for intensity in 1..5 %}
+                    <button type="button"
+                            class="btn btn-primary pain-intensity"
+                            data-intensity="{{ intensity }}">
+                        {{ intensity }}
+                    </button>
+                {% endfor %}
+            </div>
+
+            <button type="button"
+                    class="btn btn-secondary mt-3"
+                    data-bs-dismiss="modal">
+                Fermer
+            </button>
+
+        </div>
+    </div>
+</div>

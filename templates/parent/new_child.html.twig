@@ -4,16 +4,13 @@
 
 {% block body %}
     <main class="container py-5">
-
         <div class="child-form-container">
-
             <a href="{{ path('app_parent') }}" class="login-switch-link">
                 Retour à mes enfants
             </a>
 
             <div class="card rounded-4 shadow-sm mt-3">
                 <div class="card-body p-4 p-md-5">
-
                     <h1 class="h2 mb-3">Ajouter un enfant</h1>
 
                     <p class="text-secondary mb-4">
@@ -33,7 +30,6 @@
                         <div class="avatar-options">
                             {% for avatar in form.avatar %}
                                 <label class="avatar-option">
-
                                     {{ form_widget(avatar) }}
 
                                     <img
@@ -42,7 +38,6 @@
                                     >
 
                                     <span>{{ avatar.vars.label }}</span>
-
                                 </label>
                             {% endfor %}
                         </div>
@@ -51,18 +46,15 @@
                     </div>
 
                     {{ form_row(form.dailyScreenLimit) }}
-                    {{ form_row(form.plainPassword) }}
+                    {{ form_row(form.password) }}
 
                     <button type="submit" class="btn btn-primary mt-3">
                         Créer le profil et le compte
                     </button>
 
                     {{ form_end(form) }}
-
                 </div>
             </div>
-
         </div>
-
     </main>
 {% endblock %}

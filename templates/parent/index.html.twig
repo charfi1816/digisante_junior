@@ -47,6 +47,24 @@
                         Limite quotidienne :
                         <strong>{{ child.dailyScreenLimit }} minutes</strong>
                     </p>
+                    {% set todayEntry = null %}
+
+                    {% for entry in child.journalEntries %}
+                        {% if entry.date|date('Y-m-d') == 'now'|date('Y-m-d') %}
+                            {% set todayEntry = entry %}
+                        {% endif %}
+                    {% endfor %}
+
+                    <p>
+                        Temps déclaré aujourd'hui :
+                        <strong>
+                            {% if todayEntry %}
+                                {{ todayEntry.totalMinutes }} minutes
+                            {% else %}
+                                Non renseigné
+                            {% endif %}
+                        </strong>
+                    </p>
                 </article>
 
             {% else %}

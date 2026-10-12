@@ -1,0 +1,30 @@
+<div class="card">
+    <div class="card-body">
+        <h2 class="h4 mb-3">Mon journal</h2>
+
+        {% if todayJournal %}
+            <p class="text-accent fw-bold d-flex align-items-center gap-2">
+                <img
+                    src="{{ asset('images/icons/check-circle.svg') }}"
+                    alt=""
+                    class="journal-check-icon"
+                >
+                Ton journal est rempli aujourd'hui !
+            </p>
+
+            <p>
+                Bravo {{ child.firstName }} !
+                Tu peux revenir modifier tes réponses.
+            </p>
+        {% else %}
+            <p>
+                Raconte combien de temps tu as passé
+                devant les écrans aujourd'hui.
+            </p>
+        {% endif %}
+
+        <a href="{{ path('app_child_journal') }}" class="btn btn-primary">
+            {{ todayJournal ? 'Modifier mon journal' : 'Remplir mon journal' }}
+        </a>
+    </div>
+</div>

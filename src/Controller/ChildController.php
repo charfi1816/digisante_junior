@@ -31,15 +31,26 @@ final class ChildController extends AbstractController
             throw $this->createNotFoundException('Child profile not found.');
         }
 
-        // Find today's journal entry for this child.
+        // Find today's journal entry.
         $todayJournal = $journalEntryRepository->findOneBy([
             'child' => $child,
             'date' => new \DateTimeImmutable('today'),
         ]);
 
+        // Calculate the screen time percentage.
+        $percentage = 0;
+
+        if ($todayJournal !== null && $child->getDailyScreenLimit() > 0) {
+            $percentage = min(
+                100,
+                ($todayJournal->getTotalMinutes() / $child->getDailyScreenLimit()) * 100
+            );
+        }
+
         return $this->render('child/index.html.twig', [
             'child' => $child,
             'todayJournal' => $todayJournal,
+            'percentage' => $percentage,
         ]);
     }
 
