@@ -3,46 +3,30 @@
 {% block title %}Mon journal | Digi-Santé Junior{% endblock %}
 
 {% block body %}
-    <main class="container py-5 child-dashboard">
-
-        <h1 class="mb-3">Mon journal d'écran</h1>
-
+    <main class="container py-4 child-dashboard">
+        <h1 class="mb-3">Mon journal du jour</h1>
         <p class="text-muted mb-4">
-            Indique le temps passé devant chaque écran aujourd'hui, en minutes.
+            Prends quelques minutes pour raconter ta journée !
         </p>
 
-        <div class="card rounded-4 shadow-sm">
-            <div class="card-body p-4">
-
-                <h2 class="h4 mb-4">Mes temps d'écran</h2>
-
+        <div class="card">
+            <div class="card-body">
                 {{ form_start(form) }}
 
-                <div class="row g-3">
+                {% include 'child/_screen_card.html.twig' %}
 
-                    {% for field in form %}
-                        {% if field.vars.name != '_token' %}
-                            <div class="col-md-4">
-                                <div class="journal-screen-card">
-                                    {{ form_row(field) }}
-                                </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                    <p class="mt-4">
-                        Temps total : <strong class="screen-total">0 minutes</strong>
-                    </p>
-
-                </div>
+                <section class="mt-5">
+                    {% include 'child/_pain_section.html.twig' %}
+                </section>
 
                 <button type="submit" class="btn btn-primary mt-4">
                     Enregistrer mon journal
                 </button>
 
                 {{ form_end(form) }}
-
             </div>
         </div>
 
+        {% include 'pain/_pain_modal.html.twig' %}
     </main>
 {% endblock %}

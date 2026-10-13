@@ -1,0 +1,32 @@
+{% set zones = {
+    eyes: {label: 'Yeux', icon: 'eye'},
+    neck: {label: 'Cou / nuque', icon: 'neck'},
+    back: {label: 'Dos', icon: 'back'},
+    hands: {label: 'Mains / poignets', icon: 'hand'}
+} %}
+
+<h2 class="journal-section-title d-flex align-items-center gap-2">
+    <img src="{{ asset('images/icons/heart-pulse.svg') }}"
+         alt=""
+         class="journal-title-icon">
+    Comment va mon corps ?
+</h2>
+
+<p class="text-muted mb-4">
+    As-tu ressenti une douleur ? Si oui, indique où.
+</p>
+
+<div class="d-flex flex-wrap gap-3">
+    {% for code, zone in zones %}
+        <button type="button"
+                class="btn pain-zone-btn d-flex align-items-center gap-2"
+                data-bs-toggle="modal"
+                data-bs-target=".pain-modal"
+                data-zone="{{ code }}">
+            <img src="{{ asset('images/icons/' ~ zone.icon ~ '.svg') }}"
+                 alt=""
+                 class="pain-icon">
+            {{ zone.label }}
+        </button>
+    {% endfor %}
+</div>
