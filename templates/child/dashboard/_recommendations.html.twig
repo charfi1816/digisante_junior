@@ -1,0 +1,24 @@
+{% if todayJournal %}
+    <section>
+        <h2 class="h4 text-center mb-2">Mes conseils personnalisés</h2>
+
+        <p class="text-muted text-center mb-4">
+            Des idées pour prendre soin de toi chaque jour.
+        </p>
+
+        <div class="row g-3 justify-content-center">
+            {% for recommendation in recommendations %}
+                <div class="{{ recommendations|length == 1 ? 'col-12' : 'col-12 col-md-6' }}">
+                    <div class="recommendation-card h-100">
+                        <h3 class="h6 fw-semibold mb-2">
+                            {{ recommendation.title }}
+                        </h3>
+                        <p class="text-muted mb-0">
+                            {{ recommendation.message }}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endif %}

@@ -1,30 +1,53 @@
-<div class="card">
-    <div class="card-body">
-        <h2 class="h4 mb-3">Mon journal</h2>
+<section class="text-center">
+    {% if todayJournal %}
+        <img src="{{ asset('images/icons/check-circle.svg') }}"
+             alt=""
+             class="journal-check-icon mb-3">
 
-        {% if todayJournal %}
-            <p class="text-accent fw-bold d-flex align-items-center gap-2">
-                <img
-                    src="{{ asset('images/icons/check-circle.svg') }}"
-                    alt=""
-                    class="journal-check-icon"
-                >
-                Ton journal est rempli aujourd'hui !
+        <h2 class="h4 mb-2">
+            Ton journal est rempli aujourd'hui !
+        </h2>
+
+        <p class="text-muted mb-4">
+            Bravo {{ child.firstName }} !
+            Tu peux revenir modifier tes réponses.
+        </p>
+
+        {% if todayJournal.painZones|length > 0 %}
+            <p class="fw-semibold mb-2">
+                Ce que tu as signalé aujourd'hui :
             </p>
 
-            <p>
-                Bravo {{ child.firstName }} !
-                Tu peux revenir modifier tes réponses.
-            </p>
-        {% else %}
-            <p>
-                Raconte combien de temps tu as passé
-                devant les écrans aujourd'hui.
-            </p>
+            <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+                {% for painZone in todayJournal.painZones %}
+                    <span class="journal-pain-badge">
+                        {{ constant('App\\Entity\\PainZone::ZONES')[painZone.zone].name }}
+                        : {{ painZone.intensity }}/5
+                    </span>
+                {% endfor %}
+            </div>
         {% endif %}
 
+        <div class="d-flex flex-wrap justify-content-between gap-3 mt-4">
+            <a href="{{ path('app_child_journal') }}" class="btn btn-primary">
+                Modifier mon journal
+            </a>
+
+            <a href="{{ path('app_child_recommendations') }}" class="btn btn-primary">
+                Voir mes conseils
+            </a>
+        </div>
+
+    {% else %}
+        <h2 class="h4 mb-3">Mon journal</h2>
+
+        <p>
+            Raconte combien de temps tu as passé
+            devant les écrans aujourd'hui.
+        </p>
+
         <a href="{{ path('app_child_journal') }}" class="btn btn-primary">
-            {{ todayJournal ? 'Modifier mon journal' : 'Remplir mon journal' }}
+            Remplir mon journal
         </a>
-    </div>
-</div>
+    {% endif %}
+</section>

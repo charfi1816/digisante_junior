@@ -12,6 +12,7 @@ class JournalEntryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        // Define the screen time fields.
         $fields = [
             'tvScreen' => 'Télévision',
             'pcScreen' => 'Ordinateur',
@@ -21,6 +22,7 @@ class JournalEntryType extends AbstractType
             'otherScreen' => 'Autres écrans',
         ];
 
+        // Add the screen time fields.
         foreach ($fields as $name => $label) {
             $builder->add($name, IntegerType::class, [
                 'label' => $label,
@@ -31,6 +33,11 @@ class JournalEntryType extends AbstractType
                 ],
             ]);
         }
+
+        // Add the pain zones subform.
+        $builder->add('painZones', PainZonesType::class, [
+            'mapped' => false,
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

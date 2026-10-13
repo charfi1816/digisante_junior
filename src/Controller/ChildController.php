@@ -2,8 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Entity\JournalEntry;
+use App\Entity\PainZone;
+use App\Entity\User;
 use App\Form\JournalEntryType;
 use App\Repository\JournalEntryRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,86 +16,102 @@ use Symfony\Component\Routing\Attribute\Route;
 final class ChildController extends AbstractController
 {
     #[Route('/enfant', name: 'app_child')]
-    public function index(
-        JournalEntryRepository $journalEntryRepository
-    ): Response
+    public function index(JournalEntryRepository $repository): Response
     {
         $user = $this->getUser();
 
-        if (!$user instanceof User) {
+        if (!$user instanceof User || $user->getChild() === null) {
             throw $this->createAccessDeniedException();
         }
 
         $child = $user->getChild();
+        $journal = $repository->findTodayByChild($child);
 
-        if ($child === null) {
-            throw $this->createNotFoundException('Child profile not found.');
-        }
-
-        // Find today's journal entry.
-        $todayJournal = $journalEntryRepository->findOneBy([
-            'child' => $child,
-            'date' => new \DateTimeImmutable('today'),
-        ]);
-
-        // Calculate the screen time percentage.
+        // Calculate daily screen time.
         $percentage = 0;
 
-        if ($todayJournal !== null && $child->getDailyScreenLimit() > 0) {
-            $percentage = min(
-                100,
-                ($todayJournal->getTotalMinutes() / $child->getDailyScreenLimit()) * 100
-            );
+        if ($journal !== null && $child->getDailyScreenLimit() > 0) {
+            $percentage = min(100, $journal->getTotalMinutes() / $child->getDailyScreenLimit() * 100);
         }
 
         return $this->render('child/dashboard/index.html.twig', [
             'child' => $child,
-            'todayJournal' => $todayJournal,
+            'todayJournal' => $journal,
             'percentage' => $percentage,
         ]);
     }
 
     #[Route('/enfant/journal', name: 'app_child_journal')]
     public function journal(
-        Request                $request,
-        JournalEntryRepository $journalEntryRepository,
-        EntityManagerInterface $entityManager
+        JournalEntryRepository $repository,
+        EntityManagerInterface $em,
+        Request                $request
     ): Response
     {
         $user = $this->getUser();
 
-        if (!$user instanceof User) {
+        if (!$user instanceof User || $user->getChild() === null) {
             throw $this->createAccessDeniedException();
         }
 
         $child = $user->getChild();
 
-        if ($child === null) {
-            throw $this->createNotFoundException('Child profile not found.');
+        // Find or create today's journal.
+        $journal = $repository->findTodayByChild($child);
+
+        if ($journal === null) {
+            $journal = new JournalEntry();
+            $journal->setChild($child);
         }
 
-        // Find today's journal entry.
-        $journalEntry = $journalEntryRepository->findOneBy([
-            'child' => $child,
-            'date' => new \DateTimeImmutable('today'),
-        ]);
+        // Retrieve existing pain zones.
+        $painZones = [];
 
-        // Create a new journal only if none exists today.
-        if ($journalEntry === null) {
-            $journalEntry = new JournalEntry();
-            $journalEntry->setChild($child);
+        foreach ($journal->getPainZones() as $painZone) {
+            $painZones[$painZone->getZone()] = $painZone;
         }
 
-        // Create the form and read submitted data.
-        $form = $this->createForm(JournalEntryType::class, $journalEntry);
+        $form = $this->createForm(JournalEntryType::class, $journal);
+
+        // Pre-fill pain intensities.
+        foreach (PainZone::ZONES as $zone => $details) {
+            $form->get('painZones')->get($zone)->setData(
+                isset($painZones[$zone]) ? $painZones[$zone]->getIntensity() : 0
+            );
+        }
+
         $form->handleRequest($request);
 
-        // Save the journal if the form is valid.
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($journalEntry);
-            $entityManager->flush();
+            try {
+                $em->persist($journal);
 
-            return $this->redirectToRoute('app_child');
+                // Save submitted pain intensities.
+                foreach (PainZone::ZONES as $zone => $details) {
+                    $intensity = (int)$form->get('painZones')->get($zone)->getData();
+                    $painZone = $painZones[$zone] ?? null;
+
+                    if ($intensity === 0 && $painZone !== null) {
+                        $journal->removePainZone($painZone);
+                    } elseif ($intensity > 0) {
+                        if ($painZone === null) {
+                            $painZone = new PainZone();
+                            $painZone->setZone($zone);
+                            $journal->addPainZone($painZone);
+                            $em->persist($painZone);
+                        }
+
+                        $painZone->setIntensity($intensity);
+                    }
+                }
+
+                $em->flush();
+
+                $this->addFlash('success', 'Journal enregistré avec succès.');
+                return $this->redirectToRoute('app_child');
+            } catch (\Exception $e) {
+                $this->addFlash('danger', 'Une erreur est survenue lors de l’enregistrement du journal.');
+            }
         }
 
         return $this->render('child/journal/index.html.twig', [

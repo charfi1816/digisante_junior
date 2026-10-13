@@ -90,6 +90,7 @@ class AppFixtures extends Fixture
         $content->setContent(
             'Toutes les 20 minutes devant un écran, regarde un objet éloigné pendant 20 secondes.'
         );
+        $manager->persist($content);
 
         // Create a wellness content for neck tension.
         $neckContent = new WellnessContent();

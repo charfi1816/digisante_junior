@@ -16,28 +16,16 @@ class WellnessContentRepository extends ServiceEntityRepository
         parent::__construct($registry, WellnessContent::class);
     }
 
-//    /**
-//     * @return WellnessContent[] Returns an array of WellnessContent objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('w')
-//            ->andWhere('w.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('w.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?WellnessContent
-//    {
-//        return $this->createQueryBuilder('w')
-//            ->andWhere('w.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    /**
+     * Finds a wellness resource by its title.
+     */
+    public function findByTitle(string $title): ?WellnessContent
+    {
+        return $this->createQueryBuilder('w')
+            ->andWhere('w.title = :title')
+            ->setParameter('title', $title)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
+

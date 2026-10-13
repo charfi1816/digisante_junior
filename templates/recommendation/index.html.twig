@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes conseils | DigiSanté Junior{% endblock %}
+
+{% block body %}
+    <main class="container py-5 child-dashboard">
+        <div class="card">
+            <div class="card-body">
+
+                <h1 class="text-center mb-2">Mes conseils</h1>
+                <p class="text-muted text-center mb-4">
+                    Des petites astuces pour prendre soin de toi !
+                </p>
+
+                <div class="row g-3">
+                    {% for recommendation in recommendations %}
+                        <div class="col-12 col-md-6">
+                            <div class="recommendation-card">
+
+                                <div class="d-flex align-items-center gap-3 mb-2">
+
+                                    {% if recommendation.resource and recommendation.resource.title == 'Étirements du cou' %}
+                                        <img src="{{ asset('images/icons/neck.svg') }}"
+                                             alt="Nuque"
+                                             width="40">
+                                    {% elseif recommendation.resource and recommendation.resource.title == 'La règle du 20-20-20' %}
+                                        <img src="{{ asset('images/icons/eye.svg') }}"
+                                             alt="Yeux"
+                                             width="40">
+                                    {% else %}
+                                        <img src="{{ asset('images/icons/heart.svg') }}"
+                                             alt="Bien-être"
+                                             width="40">
+                                    {% endif %}
+
+                                    <h2 class="h5 mb-0">
+                                        {{ recommendation.title }}
+                                    </h2>
+                                </div>
+
+                                {% if recommendation.resource %}
+                                    <p class="mb-0 ms-5 text-muted">
+                                        {{ recommendation.resource.content|nl2br }}
+                                    </p>
+                                    {% if recommendation.resource.url %}
+                                        <a href="{{ recommendation.resource.url }}"
+                                           class="btn btn-primary mt-3"
+                                           target="_blank"
+                                           rel="noopener noreferrer">
+                                            Voir la ressource
+                                        </a>
+                                    {% endif %}
+                                {% else %}
+                                    <p class="mb-0 ms-5">
+                                        {{ recommendation.message }}
+                                    </p>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="text-center mt-4">
+                    <a href="{{ path('app_child') }}" class="btn btn-primary">
+                        Retour à mon espace
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </main>
+{% endblock %}

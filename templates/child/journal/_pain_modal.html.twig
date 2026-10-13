@@ -1,4 +1,4 @@
-<div class="modal fade  pain-modal">
+<div class="modal fade pain-modal">
     <div class="modal-dialog">
         <div class="modal-content p-3">
 
@@ -10,7 +10,7 @@
                 {% for intensity in 1..5 %}
                     <button type="button"
                             class="btn btn-primary pain-intensity"
-                            data-intensity="{{ intensity }}">
+                            value="{{ intensity }}">
                         {{ intensity }}
                     </button>
                 {% endfor %}

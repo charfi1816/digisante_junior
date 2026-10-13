@@ -241,6 +241,15 @@ class JournalEntry
         return $this;
     }
 
+    public function removePainZone(PainZone $painZone): static
+    {
+        if ($this->painZones->removeElement($painZone)) {
+            $painZone->setJournalEntry(null);
+        }
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, ContentRecommendation>
      */
