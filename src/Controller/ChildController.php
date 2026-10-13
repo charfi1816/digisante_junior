@@ -47,7 +47,7 @@ final class ChildController extends AbstractController
             );
         }
 
-        return $this->render('child/index.html.twig', [
+        return $this->render('child/dashboard/index.html.twig', [
             'child' => $child,
             'todayJournal' => $todayJournal,
             'percentage' => $percentage,
@@ -97,7 +97,7 @@ final class ChildController extends AbstractController
             return $this->redirectToRoute('app_child');
         }
 
-        return $this->render('child/journal.html.twig', [
+        return $this->render('child/journal/index.html.twig', [
             'form' => $form->createView(),
         ]);
     }

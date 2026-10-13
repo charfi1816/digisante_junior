@@ -13,10 +13,10 @@
             <div class="card-body">
                 {{ form_start(form) }}
 
-                {% include 'child/_screen_card.html.twig' %}
+                {% include 'child/journal/_screen_card.html.twig' %}
 
                 <section class="mt-5">
-                    {% include 'child/_pain_section.html.twig' %}
+                    {% include 'child/journal/_pain_section.html.twig' %}
                 </section>
 
                 <button type="submit" class="btn btn-primary mt-4">
@@ -27,6 +27,6 @@
             </div>
         </div>
 
-        {% include 'pain/_pain_modal.html.twig' %}
+        {% include 'child/journal/_pain_modal.html.twig' %}
     </main>
 {% endblock %}

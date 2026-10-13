@@ -321,13 +321,7 @@ body {
     max-width: 1000px;
 }
 
-.child-dashboard h1 {
-    color: var(--color-primary-900);
-    font-size: var(--font-size-heading-large);
-    line-height: var(--line-height-heading-large);
-    font-weight: var(--font-weight-bold);
-}
-
+.child-dashboard h1,
 .child-dashboard h2 {
     color: var(--color-primary-900);
     font-size: var(--font-size-heading-medium);
@@ -437,35 +431,16 @@ body {
 }
 
 /* Primary buttons */
-.btn.btn-primary,
-.btn.login-submit,
-.btn.children-add-btn {
+.btn.btn-primary {
     background-color: var(--color-accent-600);
     border: 1px solid var(--color-accent-600);
     border-radius: 0.75rem;
     color: var(--color-surface);
     font-weight: var(--font-weight-semibold);
-}
-
-.btn.btn-primary {
     padding: 12px 20px;
 }
 
-.btn.login-submit {
-    display: block;
-    width: 100%;
-    padding: 0.75rem 1rem;
-}
-
-.btn.children-add-btn {
-    padding: 0.75rem 1.25rem;
-}
-
-.btn.btn-primary:hover,
-.btn.login-submit:hover,
-.btn.login-submit:focus,
-.btn.children-add-btn:hover,
-.btn.children-add-btn:focus {
+.btn.btn-primary:hover {
     background-color: var(--color-accent-500);
     border-color: var(--color-accent-500);
     color: var(--color-surface);
@@ -525,7 +500,7 @@ body {
 .journal-icon img {
     width: 28px;
     height: 28px;
-    
+
 }
 
 .journal-total {
