@@ -1,0 +1,24 @@
+/* Login forms */
+.login-child-avatar {
+    display: block;
+    width: 88px;
+    height: 88px;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 480px;
+}
+
+.login-switch-link {
+    color: var(--color-accent-600);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+}
+
+.login-switch-link:hover {
+    color: #007570;
+    text-decoration: underline;
+}

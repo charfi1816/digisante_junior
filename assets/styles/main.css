@@ -1,0 +1,10 @@
+@import "./variables.css";
+@import "./base.css";
+@import "./header.css";
+@import "./footer.css";
+@import "./components.css";
+@import "./home.css";
+@import "./auth.css";
+@import "./parent.css";
+@import "./child.css";
+@import "./journal.css";

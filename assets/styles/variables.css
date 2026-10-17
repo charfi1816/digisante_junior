@@ -1,0 +1,58 @@
+/* Design system */
+:root {
+    /* Brand colors */
+    --color-primary-900: #173B6C;
+    --color-primary-700: #24528A;
+
+    /* Accent colors */
+    --color-accent-600: #008C87;
+    --color-accent-500: #12A39D;
+    --color-accent-100: #DDF5F2;
+
+    /* Neutral colors */
+    --color-background: #F4FAFA;
+    --color-surface: #FFFFFF;
+    --color-text-secondary: #5E7184;
+
+    /* Borders and focus */
+    --color-border: #D7E7E7;
+    --color-border-light: #E2EEEE;
+    --shadow-form-focus: 0 0 0 0.2rem #008C8729;
+
+    /* Font family */
+    --font-family: "Nunito", sans-serif;
+
+    /* Font sizes */
+    --font-size-display: 40px;
+    --font-size-heading-large: 32px;
+    --font-size-heading-medium: 24px;
+    --font-size-body-regular: 16px;
+    --font-size-body-small: 14px;
+    --font-size-label-medium: 14px;
+    --font-size-label-small: 12px;
+
+    /* Line heights */
+    --line-height-display: 48px;
+    --line-height-heading-large: 40px;
+    --line-height-heading-medium: 32px;
+    --line-height-body-regular: 24px;
+    --line-height-body-small: 20px;
+    --line-height-label-medium: 20px;
+    --line-height-label-small: 16px;
+
+    /* Font weights */
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* Box shadows */
+    --shadow-small: 0 2px 6px #173B6C14;
+    --shadow-medium: 0 4px 12px #173B6C1A;
+    --shadow-large: 0 8px 24px #173B6C1F;
+
+    /* Border radius */
+    --radius-small: 8px;
+    --radius-medium: 12px;
+    --radius-large: 16px;
+}

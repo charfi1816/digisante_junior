@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Child;
 
 use App\Entity\JournalEntry;
 use App\Entity\PainZone;
@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class ChildController extends AbstractController
 {
-    #[Route('/enfant', name: 'app_child')]
+    #[Route('/child', name: 'app_child')]
     public function index(JournalEntryRepository $repository): Response
     {
         $user = $this->getUser();
@@ -41,7 +41,7 @@ final class ChildController extends AbstractController
         ]);
     }
 
-    #[Route('/enfant/journal', name: 'app_child_journal')]
+    #[Route('/child/journal', name: 'app_child_journal')]
     public function journal(
         JournalEntryRepository $repository,
         EntityManagerInterface $em,

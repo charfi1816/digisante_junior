@@ -1,0 +1,16 @@
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+
+<div class="d-flex justify-content-between mt-4">
+    <a href="{{ path('admin_wellness_content_index') }}"
+       class="btn btn-primary px-4">
+        Retour à la liste
+    </a>
+
+    <button class="btn btn-primary px-4">
+        {{ button_label|default('Enregistrer') }}
+    </button>
+</div>
+{{ form_end(form) }}

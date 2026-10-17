@@ -1,0 +1,9 @@
+/* Base layout */
+body {
+    margin: 0;
+    background-color: var(--color-background);
+    color: var(--color-primary-900);
+    font-size: var(--font-size-body-regular);
+    font-family: var(--font-family), sans-serif;
+    line-height: var(--line-height-body-regular);
+}

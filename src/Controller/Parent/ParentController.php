@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Parent;
 
 use App\Entity\Child;
 use App\Entity\User;
@@ -31,7 +31,7 @@ final class ParentController extends AbstractController
         ]);
     }
 
-    #[Route('/parent/enfant/ajouter', name: 'app_parent_child_new')]
+    #[Route('/parent/child/new', name: 'app_parent_child_new')]
     public function new(
         Request                     $request,
         EntityManagerInterface      $entityManager,

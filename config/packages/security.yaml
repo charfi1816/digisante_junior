@@ -38,7 +38,7 @@ security:
     access_control:
         - { path: ^/admin(?:/|$), roles: ROLE_ADMIN }
         - { path: ^/parent(?:/|$), roles: ROLE_PARENT }
-        - { path: ^/enfant(?:/|$), roles: ROLE_CHILD }
+        - { path: ^/child(?:/|$), roles: ROLE_CHILD }
 
 when@test:
     security:

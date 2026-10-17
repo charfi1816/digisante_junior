@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail du contenu bien-être{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Détail du contenu bien-être</h1>
+
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Identifiant</th>
+                <td>{{ wellness_content.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ wellness_content.title }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ wellness_content.type }}</td>
+            </tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ wellness_content.content }}</td>
+            </tr>
+            <tr>
+                <th>Date de création</th>
+                <td>{{ wellness_content.createdAt ? wellness_content.createdAt|date('d/m/Y') : '' }}</td>
+            </tr>
+            <tr>
+                <th>URL</th>
+                <td>{{ wellness_content.url }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <a href="{{ path('admin_wellness_content_index') }}">
+            Retour à la liste
+        </a>
+
+        <a href="{{ path('admin_wellness_content_edit', {'id': wellness_content.id}) }}">
+            Modifier
+        </a>
+
+        {{ include('admin/wellness_content/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Child;
 
 use App\Entity\User;
 use App\Repository\JournalEntryRepository;
@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class RecommendationController extends AbstractController
 {
-    #[Route('/enfant/conseils', name: 'app_child_recommendations')]
+    #[Route('/child/recommendations', name: 'app_child_recommendations')]
     public function index(
         JournalEntryRepository $journalEntryRepository,
         RecommendationService  $recommendationService
