@@ -17,9 +17,7 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         parent::__construct($registry, User::class);
     }
 
-    /**
-     * Finds a user by email address or username.
-     */
+    
     public function loadUserByIdentifier(string $identifier): ?User
     {
         return $this->createQueryBuilder('u')
@@ -28,6 +26,14 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->setParameter('identifier', $identifier)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+
+    public function findByUsername(string $username): ?User
+    {
+        return $this->findOneBy([
+            'username' => $username,
+        ]);
     }
 
 }

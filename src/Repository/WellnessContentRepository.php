@@ -16,9 +16,6 @@ class WellnessContentRepository extends ServiceEntityRepository
         parent::__construct($registry, WellnessContent::class);
     }
 
-    /**
-     * Finds a wellness resource by its title.
-     */
     public function findByTitle(string $title): ?WellnessContent
     {
         return $this->createQueryBuilder('w')

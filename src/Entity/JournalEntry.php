@@ -85,6 +85,7 @@ class JournalEntry
     #[ORM\OneToMany(
         targetEntity: PainZone::class,
         mappedBy: 'journalEntry',
+        cascade: ['persist'],
         orphanRemoval: true
     )]
     private Collection $painZones;
