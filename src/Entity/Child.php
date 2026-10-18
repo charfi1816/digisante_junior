@@ -32,40 +32,40 @@ class Child
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[NotBlank(message: 'First name is required.')]
+    #[NotBlank(message: 'Le prénom est obligatoire.')]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
-    #[NotBlank(message: 'Last name is required.')]
+    #[NotBlank(message: 'Le nom est obligatoire.')]
     private ?string $lastName = null;
 
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
-    #[NotNull(message: 'Birth date is required.')]
+    #[NotNull(message: 'La date de naissance est obligatoire.')]
     #[Range(
-        notInRangeMessage: 'The child must be between 8 and 14 years old.',
+        notInRangeMessage: "L'enfant doit avoir entre 8 et 14 ans.",
         min: 'today -15 years +1 day',
         max: 'today -8 years'
     )]
     private ?\DateTimeImmutable $birthDate = null;
 
     #[ORM\Column(length: 255)]
-    #[NotBlank(message: 'Avatar is required.')]
+    #[NotBlank(message: "Le choix d'un avatar est obligatoire.")]
     #[Choice(
         choices: ['fox', 'panda', 'cat', 'lion'],
-        message: 'Please select a valid avatar.'
+        message: 'Veuillez sélectionner un avatar valide.'
     )]
     private ?string $avatar = null;
 
     #[ORM\Column]
-    #[NotNull(message: 'Daily screen limit is required.')]
+    #[NotNull(message: "La limite quotidienne de temps d'écran est obligatoire.")]
     #[Range(
-        notInRangeMessage: 'Daily screen limit must be between 15 and 480 minutes.',
+        notInRangeMessage: 'La limite quotidienne doit être comprise entre 15 et 480 minutes.',
         min: 15,
         max: 480
     )]
     #[DivisibleBy(
         value: 15,
-        message: 'Daily screen limit must be in 15-minute increments.'
+        message: 'La limite quotidienne doit être un multiple de 15 minutes.'
     )]
     private ?int $dailyScreenLimit = 120;
 
