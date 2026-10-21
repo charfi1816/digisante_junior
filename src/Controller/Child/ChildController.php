@@ -22,20 +22,15 @@ final class ChildController extends AbstractController
     ): Response
     {
         $user = $this->getUser();
-
         if (!$user instanceof User || $user->getChild() === null) {
             throw $this->createAccessDeniedException();
         }
-
         $child = $user->getChild();
         $journal = $repository->findTodayByChild($child);
-
         $percentage = 0;
-
         if ($journal !== null) {
             $percentage = $journalService->calculateScreenPercentage($journal);
         }
-
         return $this->render('child/dashboard/index.html.twig', [
             'child' => $child,
             'todayJournal' => $journal,

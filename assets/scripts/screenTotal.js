@@ -2,7 +2,8 @@
 const total = document.querySelector('.screen-total');
 
 if (total) {
-    const totalScreenInputs = document.querySelectorAll('input[type="number"]');
+    const totalScreenInputs = document.querySelectorAll(
+        'input[type="number"]');
 
     function updateTotal() {
         let minutes = 0;

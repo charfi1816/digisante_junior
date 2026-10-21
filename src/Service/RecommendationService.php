@@ -16,9 +16,6 @@ class RecommendationService
     {
     }
 
-    /**
-     * Generates personalized recommendations based on the child's daily journal.
-     */
     public function getRecommendations(JournalEntry $journal): array
     {
         $recommendations = [];
@@ -81,7 +78,7 @@ class RecommendationService
             ];
         }
 
-        // Limit the number of recommendations displayed to the child.
-        return array_slice($recommendations, 0, 3);
+
+        return $recommendations;
     }
 }

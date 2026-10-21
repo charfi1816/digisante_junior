@@ -18,8 +18,8 @@ services:
     container_name: digisante_junior_app
 
     depends_on:
-      database:
-        condition: service_healthy
+      - database
+
 
     environment:
       # Docker services communicate using their service names.
@@ -52,20 +52,14 @@ services:
       # Persist database data between container restarts.
       - db_data:/var/lib/mysql
 
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
-      interval: 5s
-      timeout: 5s
-      retries: 30
-      start_period: 10s
 
   phpmyadmin:
     image: phpmyadmin:5.2
     container_name: digisante_junior_phpmyadmin
 
     depends_on:
-      database:
-        condition: service_healthy
+      - database
+
 
     environment:
       # Connect phpMyAdmin to the MySQL service through the Docker network.
