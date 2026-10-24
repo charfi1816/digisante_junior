@@ -1,4 +1,4 @@
-// Update the total screen time while typing.
+// Update the total screen time while typing
 const total = document.querySelector('.screen-total');
 
 if (total) {

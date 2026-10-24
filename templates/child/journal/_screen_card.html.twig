@@ -1,12 +1,3 @@
-{% set screens = {
-    tvScreen: 'Télévision',
-    pcScreen: 'Ordinateur',
-    phoneScreen: 'Téléphone',
-    tabletScreen: 'Tablette',
-    consoleScreen: 'Console de jeux',
-    otherScreen: 'Autres écrans'
-} %}
-
 <h2 class="journal-section-title d-flex align-items-center gap-2">
     <img src="{{ asset('images/icons/monitor.svg') }}"
          alt=""
@@ -15,14 +6,16 @@
 </h2>
 
 <p class="text-muted mb-4">
-    Combien de minutes as-tu passé sur chaque écran ?
+    Combien de minutes as-tu passées sur chaque écran ?
 </p>
 
 <div class="d-flex flex-wrap gap-3">
-    {% for name, label in screens %}
-        <div class="journal-screen-item">
-            {{ form_row(attribute(form, name), {label: label}) }}
-        </div>
+    {% for field in form %}
+        {% if field.vars.name != 'painZones' %}
+            <div class="journal-screen-item">
+                {{ form_row(field) }}
+            </div>
+        {% endif %}
     {% endfor %}
 </div>
 
