@@ -14,7 +14,7 @@ install: ## Install and initialize the development environment
 	$(DOCKER_COMPOSE) up -d --build
 	$(COMPOSER) install
 	$(CONSOLE) doctrine:database:create --if-not-exists
-	$(CONSOLE) doctrine:migrations:migrate --no-interaction
+	$(CONSOLE) doctrine:migrations:migrate
 	@echo ""
 	@echo "Application : http://localhost:8081"
 	@echo "phpMyAdmin  : http://localhost:8082"
@@ -47,19 +47,19 @@ migration: ## Generate a migration from entity changes
 	$(CONSOLE) make:migration
 
 migrate: ## Apply pending migrations
-	$(CONSOLE) doctrine:migrations:migrate --no-interaction
+	$(CONSOLE) doctrine:migrations:migrate
 
 validate: ## Validate Doctrine mapping and database schema
 	$(CONSOLE) doctrine:schema:validate
 
 fixtures: ## Reload demo data (existing data will be deleted)
-	$(CONSOLE) doctrine:fixtures:load --no-interaction
+	$(CONSOLE) doctrine:fixtures:load
 
 reset-db: ## Recreate the database and reload demo data
 	$(CONSOLE) doctrine:database:drop --force --if-exists
 	$(CONSOLE) doctrine:database:create
-	$(CONSOLE) doctrine:migrations:migrate --no-interaction
-	$(CONSOLE) doctrine:fixtures:load --no-interaction
+	$(CONSOLE) doctrine:migrations:migrate
+	$(CONSOLE) doctrine:fixtures:load 
 
 lint: ## Check Twig, YAML and the Symfony service container
 	$(CONSOLE) lint:twig templates

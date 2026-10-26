@@ -1,5 +1,4 @@
 # Digi-Santé Junior — Development Image
-#
 # FrankenPHP provides PHP 8.5 and the Caddy web server in a single container.
 # The Symfony application runs from the /app working directory.
 
