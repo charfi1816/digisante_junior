@@ -40,13 +40,12 @@ docker compose exec app php bin/console doctrine:migrations:migrate
 docker compose exec app php bin/console doctrine:fixtures:load 
 ```
 
-Ouvrir ensuite l'application :
+## Accès en local
 
-http://localhost:8081
+Une fois les conteneurs Docker démarrés :
 
-Pour accéder à la base de données avec phpMyAdmin :
-
-http://localhost:8082
+- Application : http://localhost:8081
+- phpMyAdmin : http://localhost:8082
 
 Pour arrêter les conteneurs :
 
