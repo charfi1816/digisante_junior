@@ -36,8 +36,8 @@ Depuis le dossier du projet, lancer les commandes suivantes :
 docker compose up -d --build
 docker compose exec app composer install
 docker compose exec app php bin/console doctrine:database:create --if-not-exists
-docker compose exec app php bin/console doctrine:migrations:migrate --no-interaction
-docker compose exec app php bin/console doctrine:fixtures:load --no-interaction
+docker compose exec app php bin/console doctrine:migrations:migrate 
+docker compose exec app php bin/console doctrine:fixtures:load 
 ```
 
 Ouvrir ensuite l'application :
