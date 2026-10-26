@@ -19,7 +19,7 @@ class SecurityController extends AbstractController
     public function loginParent(AuthenticationUtils $authenticationUtils): Response
     {
         return $this->render('security/login.html.twig', [
-            'last_username' => $authenticationUtils->getLastUsername(),
+            'last_username' => '',
             'error' => $authenticationUtils->getLastAuthenticationError(),
         ]);
     }
@@ -28,7 +28,7 @@ class SecurityController extends AbstractController
     public function loginChild(AuthenticationUtils $authenticationUtils): Response
     {
         return $this->render('security/login_child.html.twig', [
-            'last_username' => $authenticationUtils->getLastUsername(),
+            'last_username' => '',
             'error' => $authenticationUtils->getLastAuthenticationError(),
         ]);
     }
@@ -38,7 +38,7 @@ class SecurityController extends AbstractController
     public function loginAdmin(AuthenticationUtils $authenticationUtils): Response
     {
         return $this->render('security/login_admin.html.twig', [
-            'last_username' => $authenticationUtils->getLastUsername(),
+            'last_username' => '',
             'error' => $authenticationUtils->getLastAuthenticationError(),
         ]);
     }

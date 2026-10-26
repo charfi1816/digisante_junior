@@ -1,13 +1,3 @@
-# Digi-Santé Junior — Development Environment
-#
-# Start the complete development stack:
-#   docker compose up -d --build
-#
-# Services exposed to the host:
-#   Application:  http://localhost:8081
-#   phpMyAdmin:   http://localhost:8082
-#   MySQL:        127.0.0.1:3308
-
 name: digisante-junior
 
 services:

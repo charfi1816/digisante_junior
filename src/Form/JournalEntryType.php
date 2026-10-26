@@ -22,7 +22,7 @@ class JournalEntryType extends AbstractType
             'otherScreen' => 'Autres écrans',
         ];
 
-        // Add the screen time fields.
+        // Add the screen time fields
         foreach ($fields as $name => $label) {
             $builder->add($name, IntegerType::class, [
                 'label' => $label,
@@ -34,7 +34,7 @@ class JournalEntryType extends AbstractType
             ]);
         }
 
-        // Add the pain zones subform.
+        // Add the pain zones subform
         $builder->add('painZones', PainZonesType::class, [
             'mapped' => false,
         ]);

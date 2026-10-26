@@ -10,10 +10,10 @@
 </p>
 
 <div class="d-flex flex-wrap gap-3">
-    {% for field in form %}
-        {% if field.vars.name != 'painZones' %}
+    {% for child in form %}
+        {% if child != form.painZones %}
             <div class="journal-screen-item">
-                {{ form_row(field) }}
+                {{ form_row(child) }}
             </div>
         {% endif %}
     {% endfor %}

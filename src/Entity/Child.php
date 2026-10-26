@@ -16,10 +16,6 @@ use Symfony\Component\Validator\Constraints\Range;
 #[ORM\Entity(repositoryClass: ChildRepository::class)]
 class Child
 {
-    /**
-     * Available avatars for child profiles.
-     */
-
     public const AVATARS = [
         'fox' => ['name' => 'Renard malin'],
         'panda' => ['name' => 'Panda calme'],
@@ -80,7 +76,9 @@ class Child
     /**
      * @var Collection<int, JournalEntry>
      */
-    #[ORM\OneToMany(targetEntity: JournalEntry::class, mappedBy: 'child', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: JournalEntry::class,
+        mappedBy: 'child',
+        orphanRemoval: true)]
     private Collection $journalEntries;
 
     public function __construct()

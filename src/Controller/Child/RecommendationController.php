@@ -22,7 +22,6 @@ final class RecommendationController extends AbstractController
         if (!$user instanceof User || $user->getChild() === null) {
             throw $this->createAccessDeniedException();
         }
-
         $child = $user->getChild();
 
         // Find today's journal.
@@ -31,7 +30,6 @@ final class RecommendationController extends AbstractController
         if ($todayJournal === null) {
             return $this->redirectToRoute('app_child_journal');
         }
-
         // Get personalized recommendations.
         $recommendations = $recommendationService->getRecommendations($todayJournal);
 

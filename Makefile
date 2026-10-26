@@ -1,7 +1,3 @@
-# Digi-Santé Junior — development shortcuts
-#
-# Run `make` to display the available commands.
-
 DOCKER_COMPOSE = docker compose
 CONSOLE = $(DOCKER_COMPOSE) exec app php bin/console
 COMPOSER = $(DOCKER_COMPOSE) exec app composer
