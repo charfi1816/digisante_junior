@@ -59,9 +59,12 @@ reset-db: ## Recreate the database and reload demo data
 	$(CONSOLE) doctrine:database:drop --force --if-exists
 	$(CONSOLE) doctrine:database:create
 	$(CONSOLE) doctrine:migrations:migrate
-	$(CONSOLE) doctrine:fixtures:load 
+	$(CONSOLE) doctrine:fixtures:load
 
 lint: ## Check Twig, YAML and the Symfony service container
 	$(CONSOLE) lint:twig templates
 	$(CONSOLE) lint:yaml config
 	$(CONSOLE) lint:container
+
+mysql: ## Open MySQL database terminal
+	$(DOCKER_COMPOSE) exec database mysql -udigisante -p digisante_junior
